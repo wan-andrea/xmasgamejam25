@@ -17,3 +17,4 @@ far = 10000.0
 [node name="WallContainer" type="Node3D" parent="."]
 
 [node name="StaticBody3D" parent="." instance=ExtResource("3_8gbba")]
+transform = Transform3D(0.39825, 0, 0, 0, 1.01305, 0, 0, 0, 0.405219, 0, 0, 0)
