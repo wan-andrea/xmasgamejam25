@@ -42,12 +42,13 @@ func placeWall() -> void:
 func _unhandled_input(event):
 	if itemToPlace == null:
 		return
-	if itemToPlace == wall_1x1:
+		"""
 		if event is InputEventMouseButton and event.pressed:
 			if event.button_index == MOUSE_BUTTON_LEFT:
 				_try_place_wall(1)
 			elif event.button_index == MOUSE_BUTTON_RIGHT:
 				_try_place_wall(2)
+		"""
 	# place not walls
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		placeAtMouse()
@@ -61,10 +62,10 @@ func getMouseCoords():
 	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
 	var result = space_state.intersect_ray(query)
 	if result:
-		print(result.position)
+		# print(result.position)
 		return result.position # Returns a Vector3 (X, Y, Z)
 	else:
-		print("null")
+		# print("null")
 		return null
 
 # -----------------------------
@@ -91,6 +92,71 @@ func is_inside_buildable_area(object: Node3D) -> bool:
 	# Check if that local point is inside the local AABB
 	return area_aabb.has_point(object_local_pos)
 
+# Returns true if the two objects' bounding boxes overlap
+func check_intersection(node_a: Node3D, node_b: Node3D) -> bool:
+	var aabb_a = _get_global_aabb(node_a)
+	var aabb_b = _get_global_aabb(node_b)
+	
+	# The intersection check
+	return aabb_a.intersects(aabb_b)
+
+# Returns true if 'target_object' overlaps with any other Node3D in the relevant containers
+func intersects_anything(target_object: Node3D) -> bool:
+	# 1. Define the list of objects to check against
+	# We combine walls and any other loose objects (like cream poofs)
+	var potential_colliders = []
+	
+	# Add all walls
+	potential_colliders.append_array(wall_container.get_children())
+	
+	# Add other objects (assuming they are direct children of the main script's node)
+	# We iterate through children of 'self' (the main Node3D script)
+	for child in get_children():
+		# Exclude the target object itself so it doesn't collide with itself
+		if child != target_object and child is Node3D:
+			# Optional: Exclude "System" nodes like Camera, Sunlight, etc.
+			if child != camera and child != wall_container and child != buildableArea:
+				potential_colliders.append(child)
+
+	# 2. Loop through everything and check for overlap
+	for other_object in potential_colliders:
+		# Skip if checking against itself (double safety)
+		if other_object == target_object:
+			continue
+			
+		# Run the AABB intersection test
+		if check_intersection(target_object, other_object):
+			# Collision found!
+			print("Intersecting with: ", other_object.name)
+			return true
+			
+	# 3. If we finished the loop without returning true, we are safe.
+	return false
+
+# Helper to get the bounding box in World Space (Global)
+func _get_global_aabb(node: Node3D) -> AABB:
+	var mesh_instance = null
+	
+	# 1. Find the mesh inside the node
+	if node is MeshInstance3D:
+		mesh_instance = node
+	else:
+		# Search children for a mesh
+		for child in node.get_children():
+			if child is MeshInstance3D:
+				mesh_instance = child
+				break
+	
+	# 2. Calculate Global AABB
+	if mesh_instance:
+		# get_aabb() returns Local Space bounds (relative to the object center)
+		var local_aabb = mesh_instance.get_aabb()
+		# Transform it to Global Space using the object's transform (Position/Rotation/Scale)
+		return mesh_instance.global_transform * local_aabb
+	
+	# Fallback: If no mesh found, return a tiny box at the object's position
+	return AABB(node.global_position, Vector3(0.1, 0.1, 0.1))
+
 # Places current object at mouse coordinates
 # Calls getMouseCoords
 func placeAtMouse() -> void:
@@ -104,36 +170,36 @@ func placeAtMouse() -> void:
 	new_object.global_position = world_position + Vector3(0, 0, 0)
 	
 	# CHECK: Is it allowed here?
-	if not is_inside_buildable_area(new_object):
-		print("Cannot build here: Outside Buildable Area")
+	if not is_inside_buildable_area(new_object) and not intersects_anything(new_object):
+		# print("Cannot build here: Outside Buildable Area")
 		new_object.queue_free() # Delete it immediately
 		return
 
+"""
 # -----------------------------
 # Glen Grid Wall Placement
 # -----------------------------
+
 func _try_place_wall(length_in_cells: int):
 	var grid_pos := _get_mouse_grid_position()
-	if grid_pos == Vector2i.ZERO and not _mouse_hits_something(): 
-		# Added a safety check: Vector2i.ZERO is valid (0,0), 
-		# but usually we want to ensure we actually hit the grid.
+	if grid_pos == null:
 		return
-
 	if not _can_place(grid_pos, length_in_cells):
 		return
-
 	_place_wall(grid_pos, length_in_cells)
 
-func _mouse_hits_something() -> bool:
-	# Helper to distinguish between "Clicked 0,0" and "Clicked nothing"
-	return getMouseCoords() != null
-
 func _get_mouse_grid_position() -> Vector2i:
-	var world_pos = getMouseCoords()
-	if world_pos == null:
+	var mouse_pos := get_viewport().get_mouse_position()
+	var ray_origin := camera.project_ray_origin(mouse_pos)
+	var ray_dir := camera.project_ray_normal(mouse_pos)
+	var query := PhysicsRayQueryParameters3D.create(
+		ray_origin,
+		ray_origin + ray_dir * 1000.0
+	)
+	var result := get_world_3d().direct_space_state.intersect_ray(query)
+	if result.is_empty():
 		return Vector2i.ZERO
-
-	# Grid math
+	var world_pos: Vector3 = result.position
 	return Vector2i(int(floor(world_pos.x / cell_size)), int(floor(world_pos.z / cell_size)))
 
 func _can_place(start: Vector2i, length: int) -> bool:
@@ -154,6 +220,7 @@ func _ensure_cell_stack(cell: Vector2i) -> Array:
 		occupied_cells[cell] = []
 	return occupied_cells[cell]
 
+#
 func _place_wall(start: Vector2i, length: int):
 	var scene = wall_1x1 if length == 1 else wall_2x1
 	if scene == null:
@@ -170,19 +237,22 @@ func _place_wall(start: Vector2i, length: int):
 	var world_z = (start.y + 0.5) * cell_size
 
 	wall.global_position = Vector3(world_x, y, world_z)
+	
 	if not is_inside_buildable_area(wall):
-		print("Wall outside buildable area! Deleting...")
-		wall.queue_free()
-		return
+			print("Wall outside buildable area! Deleting...")
+			wall.queue_free()
+
+	# Occupy all cells in the wall
+	var stack = []
 	for i in length:
 		var cell = Vector2i(start.x + i, start.y)
-		var stack = _ensure_cell_stack(cell)
+		stack = _ensure_cell_stack(cell)
 		stack.append(wall)
+		print(get_colliding_object(wall))
 
 # -----------------------------
 # Scratch discard
 # -----------------------------
-"""
 var cream_poof_scene = preload("res://Scenes/creamPoof.tscn")
 
 # On button press, adds an instance of creamPoof randomly to scene
