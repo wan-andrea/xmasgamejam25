@@ -10,10 +10,6 @@ extends Node3D
 var drawing: bool = false
 var points: Array[Vector3] = []
 
-# --------------------------------------------------
-# INPUT
-# --------------------------------------------------
-
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
@@ -21,10 +17,6 @@ func _input(event):
 				_start_drawing()
 			else:
 				_finish_drawing()
-
-# --------------------------------------------------
-# DRAW LOOP
-# --------------------------------------------------
 
 func _process(_delta):
 	if not drawing:
@@ -39,10 +31,6 @@ func _process(_delta):
 		points.append(world_pos)
 		_spawn_wall_segment(last_point, world_pos)
 
-# --------------------------------------------------
-# DRAW STATE
-# --------------------------------------------------
-
 func _start_drawing():
 	var world_pos := Vector3.ZERO
 	if not _get_mouse_world_position(world_pos):
@@ -55,10 +43,6 @@ func _start_drawing():
 func _finish_drawing():
 	drawing = false
 	points.clear()
-
-# --------------------------------------------------
-# WALL SPAWNING
-# --------------------------------------------------
 
 func _spawn_wall_segment(from: Vector3, to: Vector3):
 	if wall_scene == null:
@@ -77,15 +61,8 @@ func _spawn_wall_segment(from: Vector3, to: Vector3):
 	# Rotate so the wall follows the line
 	segment.look_at(midpoint + direction.normalized(), Vector3.UP)
 
-	# If your mesh faces Z instead of X, uncomment this:
-	# segment.rotate_y(deg_to_rad(90))
-
 	# Scale along X to match length
 	segment.scale.x = length
-
-# --------------------------------------------------
-# RAYCAST
-# --------------------------------------------------
 
 func _get_mouse_world_position(out_pos: Vector3) -> bool:
 	var mouse_pos := get_viewport().get_mouse_position()
