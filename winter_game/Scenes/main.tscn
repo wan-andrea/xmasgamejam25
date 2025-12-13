@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c1tdj5jsvqwkv" path="res://Scenes/floor.tscn" id="3_8gbba"]
 
 [node name="Main" type="Node3D"]
+transform = Transform3D(1.00178, 0, 0, 0, 1.00178, 0, 0, 0, 1.00178, 0, 0, 0)
 script = ExtResource("1_jjgbg")
 wall_1x1 = ExtResource("2_bo1nx")
 wall_2x1 = ExtResource("2_bo1nx")

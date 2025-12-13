@@ -9,20 +9,12 @@ extends Node3D
 
 var occupied_cells := {} # Dictionary<Vector2i, bool>
 
-# --------------------------------------------------
-# INPUT
-# --------------------------------------------------
-
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			_try_place_wall(1) # 1x1 wall
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			_try_place_wall(2) # 2x1 wall
-
-# --------------------------------------------------
-# WALL PLACEMENT
-# --------------------------------------------------
 
 func _try_place_wall(length_in_cells: int):
 	var grid_pos := _get_mouse_grid_position()
@@ -33,10 +25,6 @@ func _try_place_wall(length_in_cells: int):
 		return
 
 	_place_wall(grid_pos, length_in_cells)
-
-# --------------------------------------------------
-# GRID LOGIC
-# --------------------------------------------------
 
 func _get_mouse_grid_position() -> Vector2i:
 	var mouse_pos := get_viewport().get_mouse_position()
@@ -72,10 +60,6 @@ func _occupy_cells(start: Vector2i, length: int):
 	for i in length:
 		var cell := Vector2i(start.x + i, start.y)
 		occupied_cells[cell] = true
-
-# --------------------------------------------------
-# SPAWN WALL
-# --------------------------------------------------
 
 func _place_wall(start: Vector2i, length: int):
 	var scene := wall_1x1 if length == 1 else wall_2x1
