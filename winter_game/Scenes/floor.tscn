@@ -5,6 +5,7 @@
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_nvnu3"]
 
 [node name="StaticBody3D" type="StaticBody3D"]
+transform = Transform3D(0.308277, 0, 0, 0, 1.01943, 0, 0, 0, 0.407773, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(9.79582, 0, 0, 0, 1, 0, 0, 0, 9.79806, 0, 0, 0)
