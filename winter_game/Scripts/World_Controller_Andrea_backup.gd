@@ -70,27 +70,6 @@ func getMouseCoords():
 # -----------------------------
 # Andrea Placement (Cream Poof)
 # -----------------------------
-# Debug function check if collides
-func is_inside_buildable_area(object: Node3D) -> bool:
-	# get the visual boundaries of the buildable area
-	var area_aabb: AABB
-	# try to find a MeshInstance3D child to get accurate bounds
-	var mesh_child = null
-	for child in buildableArea.get_children():
-		if child is MeshInstance3D:
-			mesh_child = child
-			break	
-	if mesh_child:
-		# Get AABB in local space and transform to global space
-		area_aabb = mesh_child.get_aabb()
-	else:
-		push_warning("Buildable Area has no MeshInstance3D to define bounds.")
-		return true # Default to true to prevent blocking if setup is wrong
-	# Transform the object's position into the Buildable Area's LOCAL space
-	var object_local_pos = mesh_child.to_local(object.global_position)
-	# Check if that local point is inside the local AABB
-	return area_aabb.has_point(object_local_pos)
-
 # Places current object at mouse coordinates
 # Calls getMouseCoords
 func placeAtMouse() -> void:
@@ -102,12 +81,6 @@ func placeAtMouse() -> void:
 	# Place in scene
 	add_child(new_object)
 	new_object.global_position = world_position + Vector3(0, 0, 0)
-	
-	# CHECK: Is it allowed here?
-	if not is_inside_buildable_area(new_object):
-		print("Cannot build here: Outside Buildable Area")
-		new_object.queue_free() # Delete it immediately
-		return
 
 # -----------------------------
 # Glen Grid Wall Placement
@@ -170,10 +143,7 @@ func _place_wall(start: Vector2i, length: int):
 	var world_z = (start.y + 0.5) * cell_size
 
 	wall.global_position = Vector3(world_x, y, world_z)
-	if not is_inside_buildable_area(wall):
-		print("Wall outside buildable area! Deleting...")
-		wall.queue_free()
-		return
+
 	for i in length:
 		var cell = Vector2i(start.x + i, start.y)
 		var stack = _ensure_cell_stack(cell)
