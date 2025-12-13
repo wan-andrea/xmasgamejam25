@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b2lfp1i1jxbby" path="res://Scenes/wind_source.tscn" id="4_jjvhh"]
 
 [node name="Main" type="Node3D"]
-transform = Transform3D(1.00178, 0, 0, 0, 1.00178, 0, 0, 0, 1.00178, 0.0187244, 0.0402889, -0.0492797)
+transform = Transform3D(1.00178, 0, 0, 0, 1.00178, 0, 0, 0, 1.00178, 0, 0, 0)
 script = ExtResource("1_jjgbg")
 wall_1x1 = ExtResource("2_bo1nx")
 min_wind_force = 10000.0
