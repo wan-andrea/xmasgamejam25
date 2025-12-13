@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://clvpsgtqvtdx8"]
+[gd_scene load_steps=4 format=3 uid="uid://clvpsgtqvtdx8"]
 
 [ext_resource type="Script" uid="uid://d1fdlbmy3d43f" path="res://Scripts/World_Controller.gd" id="1_t6qmf"]
 [ext_resource type="PackedScene" uid="uid://tymj535fpulu" path="res://Scenes/wall.tscn" id="2_y0ugs"]
+[ext_resource type="PackedScene" uid="uid://cov8e6pby534g" path="res://Scenes/creamPoof.tscn" id="3_y0ugs"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_t6qmf")
@@ -9,3 +10,6 @@ wall_scene = ExtResource("2_y0ugs")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.683013, -0.258819, 0.683013, -0.00623603, 0.933013, 0.359789, -0.73038, -0.25, 0.635646, 2, 2, 2)
+
+[node name="RigidBody3D" parent="." instance=ExtResource("3_y0ugs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.290701, 0, 0.492692)
