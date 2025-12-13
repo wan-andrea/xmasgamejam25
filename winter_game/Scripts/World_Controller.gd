@@ -18,10 +18,6 @@ func _input(event):
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			_try_place_wall(2) # 2x1 wall
 
-# --------------------------------------------------
-# PLACEMENT ENTRY
-# --------------------------------------------------
-
 func _try_place_wall(length_in_cells: int):
 	var grid_pos := _get_mouse_grid_position()
 	if grid_pos == null:
@@ -31,10 +27,6 @@ func _try_place_wall(length_in_cells: int):
 		return
 
 	_place_wall(grid_pos, length_in_cells)
-
-# --------------------------------------------------
-# GRID RAYCAST
-# --------------------------------------------------
 
 func _get_mouse_grid_position() -> Vector2i:
 	var mouse_pos := get_viewport().get_mouse_position()
@@ -58,10 +50,6 @@ func _get_mouse_grid_position() -> Vector2i:
 
 	return Vector2i(x, z)
 
-# --------------------------------------------------
-# STACK-AWARE GRID LOGIC
-# --------------------------------------------------
-
 func _can_place(start: Vector2i, length: int) -> bool:
 	# Determine the height this wall would be placed at
 	var target_height := _get_stack_height(start)
@@ -83,10 +71,6 @@ func _ensure_cell_stack(cell: Vector2i) -> Array:
 	if not occupied_cells.has(cell):
 		occupied_cells[cell] = []
 	return occupied_cells[cell]
-
-# --------------------------------------------------
-# WALL SPAWNING
-# --------------------------------------------------
 
 func _place_wall(start: Vector2i, length: int):
 	var scene := wall_1x1 if length == 1 else wall_2x1
