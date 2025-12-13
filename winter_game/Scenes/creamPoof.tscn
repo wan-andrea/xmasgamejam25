@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cov8e6pby534g"]
+
+[ext_resource type="ArrayMesh" uid="uid://bg0acbg4i4wck" path="res://meshes/creamPoof.obj" id="1_rqhai"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rqhai"]
+size = Vector3(0.857361, 0.500488, 1)
+
+[node name="RigidBody3D" type="RigidBody3D"]
+
+[node name="CreamPoof" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.100192, 0, 0, 0, 0.100192, 0, 0, 0, 0.100192, -0.00801757, 0, 0.0281255)
+mesh = ExtResource("1_rqhai")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -0.00892639, 0.374634, 0)
+shape = SubResource("BoxShape3D_rqhai")
