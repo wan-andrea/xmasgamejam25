@@ -15,5 +15,4 @@ transform = Transform3D(0.683013, -0.258819, 0.683013, -0.00623603, 0.933013, 0.
 
 [node name="WallContainer" type="Node3D" parent="."]
 
-[node name="Floor" parent="." instance=ExtResource("3_8gbba")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0831823, 0, 0.171158)
+[node name="StaticBody3D" parent="." instance=ExtResource("3_8gbba")]
