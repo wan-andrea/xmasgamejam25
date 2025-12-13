@@ -32,6 +32,5 @@ grow_horizontal = 2
 [node name="addCream" type="Button" parent="CanvasLayer/UI/HBoxContainer"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-text = "CreamPoof"
 
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addCream" to="." method="_on_add_cream_pressed"]
