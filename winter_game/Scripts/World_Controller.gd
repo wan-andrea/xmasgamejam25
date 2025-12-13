@@ -14,6 +14,7 @@ func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
+				print("drawing")
 				_start_drawing()
 			else:
 				_finish_drawing()
