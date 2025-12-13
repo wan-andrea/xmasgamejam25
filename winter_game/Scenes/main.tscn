@@ -1,13 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://dayw3rf7f62ov"]
+[gd_scene load_steps=5 format=3 uid="uid://dayw3rf7f62ov"]
 
 [ext_resource type="Script" uid="uid://d1fdlbmy3d43f" path="res://Scripts/World_Controller.gd" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://tymj535fpulu" path="res://Scenes/wall.tscn" id="2_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://c1tdj5jsvqwkv" path="res://Scenes/floor.tscn" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://b2lfp1i1jxbby" path="res://Scenes/wind_source.tscn" id="4_jjvhh"]
 
 [node name="Main" type="Node3D"]
-transform = Transform3D(1.00178, 0, 0, 0, 1.00178, 0, 0, 0, 1.00178, 0, 0, 0)
+transform = Transform3D(1.00178, 0, 0, 0, 1.00178, 0, 0, 0, 1.00178, 0.0187244, 0.0402889, -0.0492797)
 script = ExtResource("1_jjgbg")
 wall_1x1 = ExtResource("2_bo1nx")
+min_wind_force = 10000.0
+max_wind_force = 100000.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.62091, -0.626824, 0.466918, 0.0845211, 0.646665, 0.755732, -0.777031, -0.430542, 0.455309, 10, 10, 10)
@@ -17,4 +20,9 @@ far = 10000.0
 [node name="WallContainer" type="Node3D" parent="."]
 
 [node name="StaticBody3D" parent="." instance=ExtResource("3_8gbba")]
-transform = Transform3D(0.39825, 0, 0, 0, 1.01305, 0, 0, 0, 0.405219, 0, 0, 0)
+transform = Transform3D(0.39825, 0, 0, 0, 1.01305, 0, 0, 0, 0.405219, 0.0221497, -4.7599e-07, -0.00102481)
+
+[node name="WindSources" type="Node3D" parent="."]
+
+[node name="WindSource" parent="WindSources" instance=ExtResource("4_jjvhh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.53258, 0, 0)
