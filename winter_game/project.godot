@@ -14,3 +14,7 @@ config/name="Winter_Game"
 run/main_scene="uid://dayw3rf7f62ov"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[global_group]
+
+Build_Area=""

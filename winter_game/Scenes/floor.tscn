@@ -7,7 +7,7 @@ albedo_color = Color(0, 0, 1, 1)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_nvnu3"]
 
-[node name="StaticBody3D" type="StaticBody3D"]
+[node name="StaticBody3D" type="StaticBody3D" groups=["Build_Area"]]
 transform = Transform3D(0.399995, 0, 0, 0, 1.01749, 0, 0, 0, 0.406995, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
