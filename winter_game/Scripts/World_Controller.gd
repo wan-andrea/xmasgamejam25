@@ -18,6 +18,7 @@ func _input(event):
 
 func _try_place_wall(length_in_cells: int):
 	var grid_pos := _get_mouse_grid_position()
+	print(grid_pos)
 	if grid_pos == null:
 		return
 
