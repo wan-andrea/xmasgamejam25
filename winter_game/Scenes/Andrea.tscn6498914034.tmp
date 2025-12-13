@@ -1,23 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://clvpsgtqvtdx8"]
+[gd_scene load_steps=3 format=3 uid="uid://clvpsgtqvtdx8"]
 
 [ext_resource type="Script" uid="uid://ck6d627fxm63v" path="res://Scripts/World_Controller_Andrea.gd" id="1_t6qmf"]
-[ext_resource type="PackedScene" uid="uid://c1tdj5jsvqwkv" path="res://Scenes/floor.tscn" id="3_e7cgn"]
 [ext_resource type="PackedScene" uid="uid://cov8e6pby534g" path="res://Scenes/creamPoof.tscn" id="3_y0ugs"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_t6qmf")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
-shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.683013, -0.258819, 0.683013, -0.00623603, 0.933013, 0.359789, -0.73038, -0.25, 0.635646, 2, 2, 2)
 
 [node name="RigidBody3D" parent="." instance=ExtResource("3_y0ugs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.290701, 0, 0.492692)
-
-[node name="StaticBody3D" parent="." instance=ExtResource("3_e7cgn")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -28,7 +21,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI"]
 layout_mode = 1
@@ -42,4 +34,4 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 text = "CreamPoof"
 
-[connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addCream" to="." method="placeCream"]
+[connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addCream" to="." method="_on_add_cream_pressed"]
