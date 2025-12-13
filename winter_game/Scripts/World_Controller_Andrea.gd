@@ -40,6 +40,8 @@ func placeWall() -> void:
 # -----------------------------
 # If we are placing an object, get the mouse coords and place
 func _unhandled_input(event):
+	if itemToPlace == null:
+		return
 	if itemToPlace == wall_1x1:
 		if event is InputEventMouseButton and event.pressed:
 			if event.button_index == MOUSE_BUTTON_LEFT:
@@ -49,8 +51,6 @@ func _unhandled_input(event):
 	# place not walls
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		placeAtMouse()
-	if  event is InputEventMouseButton and itemToPlace == null:
-		# FIX THIS 
 
 # Gets mouse coords
 func getMouseCoords():
