@@ -1,12 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dayw3rf7f62ov"]
+[gd_scene load_steps=3 format=3 uid="uid://dayw3rf7f62ov"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_7u77a"]
+[ext_resource type="Script" uid="uid://d1fdlbmy3d43f" path="res://Scenes/World_Controller.gd" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://tymj535fpulu" path="res://Scenes/wall.tscn" id="2_bo1nx"]
 
 [node name="Main" type="Node3D"]
+script = ExtResource("1_jjgbg")
+wall_scene = ExtResource("2_bo1nx")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.683013, -0.258819, 0.683013, -0.00623603, 0.933013, 0.359789, -0.73038, -0.25, 0.635646, 1, 1, 1)
-
-[node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.8, 0, 0, 0, 1, 0, 0, 0, 3.1, 0, 0, 0)
-mesh = SubResource("PlaneMesh_7u77a")
+transform = Transform3D(0.683013, -0.258819, 0.683013, -0.00623603, 0.933013, 0.359789, -0.73038, -0.25, 0.635646, 2, 2, 2)
