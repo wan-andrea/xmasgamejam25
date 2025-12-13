@@ -1,13 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://clvpsgtqvtdx8"]
+[gd_scene load_steps=8 format=3 uid="uid://clvpsgtqvtdx8"]
 
 [ext_resource type="Script" uid="uid://ck6d627fxm63v" path="res://Scripts/World_Controller_Andrea.gd" id="1_t6qmf"]
+[ext_resource type="PackedScene" uid="uid://tymj535fpulu" path="res://Scenes/wall.tscn" id="2_d758j"]
 [ext_resource type="Script" uid="uid://45s5b7371oa7" path="res://Scenes/camera3D_ZoomToFit.gd" id="2_o11sk"]
 [ext_resource type="PackedScene" uid="uid://c1tdj5jsvqwkv" path="res://Scenes/floor.tscn" id="3_e7cgn"]
 [ext_resource type="PackedScene" uid="uid://cov8e6pby534g" path="res://Scenes/creamPoof.tscn" id="3_y0ugs"]
 [ext_resource type="PackedScene" uid="uid://c78wna68tqssd" path="res://Scenes/worldFloor.tscn" id="5_r3fm6"]
+[ext_resource type="PackedScene" uid="uid://b2lfp1i1jxbby" path="res://Scenes/wind_source.tscn" id="6_r3fm6"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_t6qmf")
+wall_1x1 = ExtResource("2_d758j")
+wall_2x1 = ExtResource("2_d758j")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
@@ -44,10 +48,22 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 text = "CreamPoof"
 
+[node name="addWall" type="Button" parent="CanvasLayer/UI/HBoxContainer"]
+layout_mode = 2
+text = "Wall"
+
 [node name="buildableArea" parent="." instance=ExtResource("3_e7cgn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="worldFloor" parent="." instance=ExtResource("5_r3fm6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0647635, -0.29857, 0.0907938)
 
+[node name="WallContainer" type="Node3D" parent="."]
+
+[node name="WindSources" type="Node3D" parent="."]
+
+[node name="WindSource" parent="WindSources" instance=ExtResource("6_r3fm6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.53258, 0, 0)
+
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addCream" to="." method="placeCream"]
+[connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addWall" to="." method="placeWall"]
