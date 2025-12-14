@@ -11,7 +11,12 @@
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_t6qmf")
+cell_size = null
 wall_1x1 = ExtResource("2_d758j")
+wall_height = null
+base_wind_strength = null
+max_wind_strength = null
+wind_change_speed = null
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0.050436, 0)
