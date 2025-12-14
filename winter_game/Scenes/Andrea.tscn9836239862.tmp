@@ -1,0 +1,203 @@
+[gd_scene load_steps=9 format=3 uid="uid://clvpsgtqvtdx8"]
+
+[ext_resource type="Script" uid="uid://ck6d627fxm63v" path="res://Scripts/World_Controller_Andrea.gd" id="1_t6qmf"]
+[ext_resource type="PackedScene" uid="uid://tymj535fpulu" path="res://Scenes/wall.tscn" id="2_d758j"]
+[ext_resource type="Script" uid="uid://45s5b7371oa7" path="res://Scenes/camera3D_ZoomToFit.gd" id="2_o11sk"]
+[ext_resource type="PackedScene" uid="uid://c1tdj5jsvqwkv" path="res://Scenes/floor.tscn" id="3_e7cgn"]
+[ext_resource type="PackedScene" uid="uid://cov8e6pby534g" path="res://Scenes/creamPoof.tscn" id="3_y0ugs"]
+[ext_resource type="PackedScene" uid="uid://c78wna68tqssd" path="res://Scenes/worldFloor.tscn" id="5_r3fm6"]
+[ext_resource type="PackedScene" uid="uid://b2lfp1i1jxbby" path="res://Scenes/wind_source.tscn" id="6_r3fm6"]
+[ext_resource type="PackedScene" uid="uid://tym7u1282626" path="res://Scenes/HeightDetector.tscn" id="8_xj6p0"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_t6qmf")
+cell_size = null
+wall_1x1 = ExtResource("2_d758j")
+wall_height = null
+base_wind_strength = null
+max_wind_strength = null
+wind_change_speed = null
+wind_force_clamp = 10.0
+camera_height_offset = null
+camera_follow_speed = null
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0.050436, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.683013, -0.258819, 0.683013, -0.00623603, 0.933013, 0.359789, -0.73038, -0.25, 0.635646, 2, 2, 2)
+projection = 1
+script = ExtResource("2_o11sk")
+
+[node name="defaultCreamPuff" parent="." instance=ExtResource("3_y0ugs")]
+transform = Transform3D(0.96377, 0, 0, 0, 0.96377, 0, 0, 0, 0.96377, 0.290701, 0, 0.492692)
+visible = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 130.0
+grow_vertical = 0
+text = "Time remaining: "
+
+[node name="Time" type="Label" parent="CanvasLayer/UI/TimeLabel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 130.0
+offset_right = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="decorativePlacement" type="HBoxContainer" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.062
+offset_bottom = -32.176
+grow_horizontal = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="addCream" type="Button" parent="CanvasLayer/UI/decorativePlacement"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "creamPoof"
+
+[node name="addGum" type="Button" parent="CanvasLayer/UI/decorativePlacement"]
+layout_mode = 2
+text = "gumDrop"
+
+[node name="addKiss" type="Button" parent="CanvasLayer/UI/decorativePlacement"]
+layout_mode = 2
+text = "hersheyKiss"
+
+[node name="addMarshmallow" type="Button" parent="CanvasLayer/UI/decorativePlacement"]
+layout_mode = 2
+text = "marshMallow
+"
+
+[node name="addReeses" type="Button" parent="CanvasLayer/UI/decorativePlacement"]
+layout_mode = 2
+text = "peanutCup"
+
+[node name="addPretzel" type="Button" parent="CanvasLayer/UI/decorativePlacement"]
+layout_mode = 2
+text = "pretzelSquare"
+
+[node name="addWall" type="Button" parent="CanvasLayer/UI/decorativePlacement"]
+layout_mode = 2
+text = "wallOld"
+
+[node name="fatWall" type="Button" parent="CanvasLayer/UI/decorativePlacement"]
+layout_mode = 2
+text = "fatWall"
+
+[node name="thinWall" type="Button" parent="CanvasLayer/UI/decorativePlacement"]
+layout_mode = 2
+text = "thinWall"
+
+[node name="rectWall" type="Button" parent="CanvasLayer/UI/decorativePlacement"]
+layout_mode = 2
+text = "rectWall"
+
+[node name="endGame" type="VBoxContainer" parent="CanvasLayer/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/UI/endGame"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Game over"
+uppercase = true
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/UI/endGame"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Your score: "
+
+[node name="Score" type="Label" parent="CanvasLayer/UI/endGame/ScoreLabel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.48
+anchor_bottom = 1.0
+offset_left = 270.0
+offset_right = 0.039978
+theme_override_font_sizes/font_size = 50
+text = "Your score: "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/endGame"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/endGame/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Restart game"
+
+[node name="Button2" type="Button" parent="CanvasLayer/UI/endGame/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Exit game"
+
+[node name="wallPlacement" type="VBoxContainer" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="buildableArea" parent="." instance=ExtResource("3_e7cgn")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.870608, 0)
+
+[node name="worldFloor" parent="." instance=ExtResource("5_r3fm6")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -0.258878, -9.43717, 0.219998)
+
+[node name="WallContainer" type="Node3D" parent="."]
+
+[node name="WindSources" type="Node3D" parent="."]
+
+[node name="WindSource" parent="WindSources" instance=ExtResource("6_r3fm6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.53258, 0, 0)
+
+[node name="Wall" parent="." instance=ExtResource("2_d758j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03739, -10.6941, 1.01856)
+visible = false
+
+[node name="HeightChecker" parent="." instance=ExtResource("8_xj6p0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 9.54358, -1)
+visible = false
+
+[connection signal="pressed" from="CanvasLayer/UI/decorativePlacement/addCream" to="." method="placeCream"]
+[connection signal="pressed" from="CanvasLayer/UI/decorativePlacement/addGum" to="." method="placeGum"]
+[connection signal="pressed" from="CanvasLayer/UI/decorativePlacement/addKiss" to="." method="placeKiss"]
+[connection signal="pressed" from="CanvasLayer/UI/decorativePlacement/addMarshmallow" to="." method="placeMallow"]
+[connection signal="pressed" from="CanvasLayer/UI/decorativePlacement/addReeses" to="." method="placeCup"]
+[connection signal="pressed" from="CanvasLayer/UI/decorativePlacement/addPretzel" to="." method="placePretzel"]
+[connection signal="pressed" from="CanvasLayer/UI/decorativePlacement/addWall" to="." method="placeWall"]
+[connection signal="pressed" from="CanvasLayer/UI/decorativePlacement/fatWall" to="." method="placeFatWall"]
+[connection signal="pressed" from="CanvasLayer/UI/decorativePlacement/thinWall" to="." method="placeThinWall"]
+[connection signal="pressed" from="CanvasLayer/UI/decorativePlacement/rectWall" to="." method="placeRectWall"]
+[connection signal="pressed" from="CanvasLayer/UI/endGame/HBoxContainer/Button" to="." method="restartGame"]
+[connection signal="pressed" from="CanvasLayer/UI/endGame/HBoxContainer/Button2" to="." method="endGame"]

@@ -26,7 +26,8 @@ extends Node3D
 # =============================
 var occupied_cells := {}
 var itemToPlace = null
-
+var timer: Timer
+var time_left: float = 60.0 
 # --- WIND STATE ---
 var wind_direction: Vector3 = Vector3.FORWARD
 var wind_strength: float = 0.0
@@ -349,28 +350,41 @@ func _get_global_aabb(node: Node3D) -> AABB:
 # TIMER / SCORE
 # =============================
 func StartTimer():
-	var timer := Timer.new()
+	if timer: 
+		timer.queue_free()
+		
+	timer = Timer.new()
 	add_child(timer)
-	timer.wait_time = 45
-	timer.one_shot = true
-	timer.start()
-	print("Timer started")
-	timer.timeout.connect(_on_timer_timeout)
+	timer.wait_time = 1.0
+	timer.one_shot = false # Must be false to repeat every second
 	timer.timeout.connect(_on_timer_tick)
+	timer.start()
 	
+	# Update the UI
+	_update_timer_ui()
 
 func _on_timer_tick() -> void:
-	var time_left: float = 60
-	print("tick")
 	time_left -= 1
-	if time_left < 0:
+	
+	if time_left <= 0:
 		time_left = 0
-		_on_timer_timeout()  # end game
+		_update_timer_ui() # Show 0:00
+		timer.stop()       # Stop the timer so it doesn't keep ticking into negatives
+		_on_timer_timeout() # End game
 		return
 	
-	# Update UI
-	$CanvasLayer/UI/HBoxContainer/TimeLabel/Time.text = str(int(time_left))
+	_update_timer_ui()
 
+func _update_timer_ui() -> void:
+	# Format to MM:SS
+	var minutes = int(time_left / 60)
+	var seconds = int(time_left) % 60
+	var time_string = "%d:%02d" % [minutes, seconds]
+	# get label
+	var ui_label = $CanvasLayer/UI/TimeLabel
+	if ui_label:
+		ui_label.text = time_string
+		
 func CheckHeight(): 
 	var FinalHeight = 0.0 
 	while not intersects_anything($HeightChecker): 
