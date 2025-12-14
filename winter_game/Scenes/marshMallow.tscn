@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7i6tsa4xkr8"]
+
+[ext_resource type="Script" uid="uid://0lqmuqy6rb0s" path="res://Scenes/cream_poof.gd" id="1_wi8kq"]
+[ext_resource type="ArrayMesh" uid="uid://bmi7gjtei3glo" path="res://meshes/marshMallow.obj" id="2_wi8kq"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wi8kq"]
+points = PackedVector3Array(-3.09999, 4.99679, -0.581683, 3.08911, 5.08515, 0.577885, 3.09298, 0.93406, 0.57861, -0.580873, 1.02283, 3.10342, -0.481701, 0.548026, -2.99563, 1.54644, 5.28132, -2.70661, 0.6778, 5.67107, 2.80533, -2.61277, 0.155682, 0.579694, -2.31572, 5.66502, 1.73629, -0.868133, 5.85915, -2.51167, 2.41396, 0.259867, -1.44874, 1.74369, 0.348565, 2.32349, -2.40517, 0.845786, -2.02135, 2.80128, 5.56962, -0.966362, -2.99909, 0.931037, 0.966256, -1.25409, 4.98923, -2.89617, 1.9276, 4.98581, 2.50452, -1.63758, 4.98643, 2.69735, 2.12849, 5.96091, 1.15983, 1.92302, 1.0407, -2.50006, -0.86938, 0.0615708, 2.32049, -1.25705, 0.0604026, -2.12894, -2.32278, 5.9639, 0.676284, -2.0193, 0.846394, 2.40448, 2.90144, 1.02891, -1.25728, 2.41985, 0.0595972, 0.48309, -2.40097, 5.3644, -1.92212, 0.581523, 4.99647, -3.101, -2.79902, 5.08582, 1.44661, 0.871694, 0.736422, 3.0005, 1.45129, 5.96039, -1.93492, -2.99386, 0.741462, -0.869234)
+
+[node name="RigidBody3D" type="RigidBody3D"]
+transform = Transform3D(0.997866, 0, 0, 0, 0.997866, 0, 0, 0, 0.997866, 0, 0, 0)
+script = ExtResource("1_wi8kq")
+
+[node name="CreamPoof" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.0178259, 0.00587017, 0.0173992)
+mesh = ExtResource("2_wi8kq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.00801757, 0, 0.0281255)
+shape = SubResource("ConvexPolygonShape3D_wi8kq")

@@ -60,6 +60,11 @@ text = "gumDrop"
 layout_mode = 2
 text = "hersheyKiss"
 
+[node name="addMarshmallow" type="Button" parent="CanvasLayer/UI/HBoxContainer"]
+layout_mode = 2
+text = "marshMallow
+"
+
 [node name="addWall" type="Button" parent="CanvasLayer/UI/HBoxContainer"]
 layout_mode = 2
 text = "Wall"
@@ -145,6 +150,7 @@ visible = false
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addCream" to="." method="placeCream"]
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addGum" to="." method="placeGum"]
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addKiss" to="." method="placeKiss"]
+[connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addMarshmallow" to="." method="placeMallow"]
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addWall" to="." method="placeWall"]
 [connection signal="pressed" from="CanvasLayer/UI/VBoxContainer/HBoxContainer/Button" to="." method="restartGame"]
 [connection signal="pressed" from="CanvasLayer/UI/VBoxContainer/HBoxContainer/Button2" to="." method="endGame"]
