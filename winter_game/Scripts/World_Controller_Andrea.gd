@@ -40,18 +40,23 @@ func placeWall() -> void:
 # -----------------------------
 # If we are placing an object, get the mouse coords and place
 func _unhandled_input(event):
+	# ESC will get you out of the chosen menu tools
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		if itemToPlace != null:
+			itemToPlace = null
+		# Reset the UI of the button - find the button pressed and release it
+		var focused_node = get_viewport().gui_get_focus_owner()
+		if focused_node:
+			focused_node.release_focus()
 	if itemToPlace == null:
 		return
-		"""
-		if event is InputEventMouseButton and event.pressed:
-			if event.button_index == MOUSE_BUTTON_LEFT:
-				_try_place_wall(1)
-			elif event.button_index == MOUSE_BUTTON_RIGHT:
-				_try_place_wall(2)
-		"""
-	# place not walls
+	# place objects on click location
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		placeAtMouse()
+		if itemToPlace == creamPoofScene:
+				placeOnFace()
+		else:
+			placeAtMouse()
+			
 
 # Gets mouse coords
 func getMouseCoords():
@@ -68,6 +73,26 @@ func getMouseCoords():
 		# print("null")
 		return null
 
+# Returns a Dictionary with { "node": Node3D, "normal": Vector3 }
+# Returns empty {} if nothing hit
+func objectClicked() -> Dictionary:
+	var space_state = get_world_3d().direct_space_state
+	var mouse_pos = get_viewport().get_mouse_position()
+	
+	var ray_origin = camera.project_ray_origin(mouse_pos)
+	var ray_end = ray_origin + camera.project_ray_normal(mouse_pos) * 1000.0
+	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+	
+	var result = space_state.intersect_ray(query)
+	
+	if result and result.has("collider"):
+		return {
+			"node": result["collider"],
+			"normal": result["normal"],     # The world-space normal of the face
+			"position": result["position"]  # The exact hit point
+		}
+	
+	return {}
 # -----------------------------
 # Andrea Placement (Cream Poof)
 # -----------------------------
@@ -175,6 +200,51 @@ func placeAtMouse() -> void:
 		new_object.queue_free() # Delete it immediately
 		return
 
+# Helper function for get_snappedNormal which gets cardinal dir
+func get_snapped_normal(n: Vector3) -> Vector3:
+	# Find which axis has the largest absolute value and snap to it
+	if abs(n.y) > abs(n.x) and abs(n.y) > abs(n.z):
+		return Vector3(0, sign(n.y), 0) # Top/Bottom
+	elif abs(n.x) > abs(n.z):
+		return Vector3(sign(n.x), 0, 0) # Left/Right
+	else:
+		return Vector3(0, 0, sign(n.z)) # Front/Back
+
+# Places an object aligned to the face of the clicked face on mesh 
+func placeOnFace() -> void:
+	var hit_object = objectClicked()
+	# Make sure we actually clicked on object
+	var clicked_node = hit_object["node"]
+	print(clicked_node, clicked_node.is_in_group("walls"))
+	if not hit_object.is_empty() and clicked_node.is_in_group("walls"):
+		var click_pos = hit_object["position"]
+		var raw_normal = hit_object["normal"]
+		# call snapped normal
+		var face_normal = get_snapped_normal(raw_normal)
+		# create new object
+		var new_object = itemToPlace.instantiate()
+		add_child(new_object)
+		# Prevent object from falling, since it is attached to smth
+		if new_object is RigidBody3D:
+			new_object.gravity_scale = 0.0
+		# place it where clicked
+		new_object.global_position = click_pos
+		# orient object so the Y up is oriented to the face normal
+		if face_normal.is_equal_approx(Vector3.UP):
+			new_object.rotation_degrees = Vector3.ZERO
+		elif face_normal.is_equal_approx(Vector3.DOWN):
+			new_object.rotation_degrees = Vector3(180, 0, 0)
+		else:
+			new_object.look_at(click_pos + face_normal, Vector3.UP)
+			new_object.rotate_object_local(Vector3.RIGHT, -PI/2)
+		# delete if invalid
+		if not intersects_anything(new_object):
+			new_object.queue_free() # Delete it immediately
+			return
+	else:
+		placeAtMouse()
+	
+	
 """
 # -----------------------------
 # Glen Grid Wall Placement

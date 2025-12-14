@@ -31,7 +31,6 @@ func get_world_floor_bbox(root_node: Node3D) -> AABB:
 
 # Function to zoom to fit
 func orthoZoomToFit(bbox, margin: float = 1.2):
-	print("running orthoZoomToFit...")
 	# centerpoint of the bounding box
 	var target_center = bbox.get_center()
 	# move camera away from the center
