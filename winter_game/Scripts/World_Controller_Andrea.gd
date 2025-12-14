@@ -356,7 +356,7 @@ func StartTimer():
 	timer.start()
 	print("Timer started")
 	timer.timeout.connect(_on_timer_timeout)
-	timer.timeout.connect(_on_timer_tick)
+	
 	
 
 func _on_timer_tick() -> void:
