@@ -37,7 +37,7 @@ var time_elapsed := 0.0
 # =============================
 var creamPoofScene = preload("res://Scenes/creamPoof.tscn")
 var gumDropScene = preload("res://Scenes/gumDrop.tscn")
-
+var hersheyKissScene = preload("res://Scenes/hersheyKiss.tscn")
 
 # =============================
 # INPUT
@@ -56,7 +56,9 @@ func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if itemToPlace == creamPoofScene:
 			placeOnFace()
-		if itemToPlace == gumDropScene:
+		elif itemToPlace == gumDropScene:
+			placeOnFace()
+		elif itemToPlace == hersheyKissScene:
 			placeOnFace()
 		else:
 			placeAtMouse()
@@ -114,6 +116,10 @@ func placeCream() -> void:
 # Item can be placed on walls
 func placeGum() -> void:
 	itemToPlace = gumDropScene
+
+# Item can be placed on walls
+func placeKiss() -> void:
+	itemToPlace = hersheyKissScene
 
 func placeWall() -> void:
 	itemToPlace = wall_1x1
@@ -177,6 +183,7 @@ func get_snapped_normal(n: Vector3) -> Vector3:
 func placeOnFace() -> void:
 	print("Using placeOnFace...")
 	var hit = objectClicked()
+	""""""
 	if hit.is_empty():
 		placeAtMouse()
 		return

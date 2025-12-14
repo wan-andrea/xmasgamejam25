@@ -50,11 +50,15 @@ metadata/_edit_use_anchors_ = true
 [node name="addCream" type="Button" parent="CanvasLayer/UI/HBoxContainer"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-text = "CreamPoof"
+text = "creamPoof"
 
 [node name="addGum" type="Button" parent="CanvasLayer/UI/HBoxContainer"]
 layout_mode = 2
-text = "addGum"
+text = "gumDrop"
+
+[node name="addKiss" type="Button" parent="CanvasLayer/UI/HBoxContainer"]
+layout_mode = 2
+text = "hersheyKiss"
 
 [node name="addWall" type="Button" parent="CanvasLayer/UI/HBoxContainer"]
 layout_mode = 2
@@ -140,6 +144,7 @@ visible = false
 
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addCream" to="." method="placeCream"]
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addGum" to="." method="placeGum"]
+[connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addKiss" to="." method="placeKiss"]
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addWall" to="." method="placeWall"]
 [connection signal="pressed" from="CanvasLayer/UI/VBoxContainer/HBoxContainer/Button" to="." method="restartGame"]
 [connection signal="pressed" from="CanvasLayer/UI/VBoxContainer/HBoxContainer/Button2" to="." method="endGame"]
