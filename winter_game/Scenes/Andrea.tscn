@@ -182,6 +182,8 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 9.54358, -1)
 visible = false
 
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+
 [connection signal="pressed" from="CanvasLayer/UI/decorativePlacement/addCream" to="." method="placeCream"]
 [connection signal="pressed" from="CanvasLayer/UI/decorativePlacement/addGum" to="." method="placeGum"]
 [connection signal="pressed" from="CanvasLayer/UI/decorativePlacement/addKiss" to="." method="placeKiss"]
