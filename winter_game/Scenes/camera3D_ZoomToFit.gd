@@ -1,7 +1,7 @@
 extends Camera3D
 
 # Get the worldFloor
-@onready var world_floor = $"../worldFloor"
+@onready var world_floor = $"../buildableArea"
 
 # runs when game starts
 func _ready():
@@ -36,7 +36,7 @@ func orthoZoomToFit(bbox, margin: float = 1.2):
 	# move camera away from the center
 	var back_direction = self.global_transform.basis.z.normalized()
 	# calculate safe distance
-	var radius = bbox.size.length() * 0.5
+	var radius = bbox.size.length() * 1
 	var safe_distance = radius + self.near + 0.1
 	# place object at the center of the bounding box then move it backwards
 	self.global_position = target_center + (back_direction * safe_distance)

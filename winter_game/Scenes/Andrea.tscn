@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://clvpsgtqvtdx8"]
+[gd_scene load_steps=9 format=3 uid="uid://clvpsgtqvtdx8"]
 
 [ext_resource type="Script" uid="uid://ck6d627fxm63v" path="res://Scripts/World_Controller_Andrea.gd" id="1_t6qmf"]
 [ext_resource type="PackedScene" uid="uid://tymj535fpulu" path="res://Scenes/wall.tscn" id="2_d758j"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cov8e6pby534g" path="res://Scenes/creamPoof.tscn" id="3_y0ugs"]
 [ext_resource type="PackedScene" uid="uid://c78wna68tqssd" path="res://Scenes/worldFloor.tscn" id="5_r3fm6"]
 [ext_resource type="PackedScene" uid="uid://b2lfp1i1jxbby" path="res://Scenes/wind_source.tscn" id="6_r3fm6"]
+[ext_resource type="PackedScene" uid="uid://tym7u1282626" path="res://Scenes/HeightDetector.tscn" id="8_xj6p0"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_t6qmf")
@@ -14,7 +15,7 @@ wall_1x1 = ExtResource("2_d758j")
 wall_2x1 = ExtResource("2_d758j")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0.050436, 0)
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -52,12 +53,14 @@ text = "CreamPoof"
 layout_mode = 2
 text = "Wall"
 
+[node name="Button" type="Button" parent="CanvasLayer/UI/HBoxContainer"]
+layout_mode = 2
+
 [node name="buildableArea" parent="." instance=ExtResource("3_e7cgn")]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.870608, 0)
 
 [node name="worldFloor" parent="." instance=ExtResource("5_r3fm6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0647635, -0.29857, 0.0907938)
-visible = false
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -0.258878, -9.43717, 0.219998)
 
 [node name="WallContainer" type="Node3D" parent="."]
 
@@ -66,5 +69,14 @@ visible = false
 [node name="WindSource" parent="WindSources" instance=ExtResource("6_r3fm6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.53258, 0, 0)
 
+[node name="Wall" parent="." instance=ExtResource("2_d758j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03739, -10.6941, 1.01856)
+visible = false
+
+[node name="HeightChecker" parent="." instance=ExtResource("8_xj6p0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 9.54358, -1)
+visible = false
+
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addCream" to="." method="placeCream"]
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addWall" to="." method="placeWall"]
+[connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/Button" to="." method="checkHeight"]

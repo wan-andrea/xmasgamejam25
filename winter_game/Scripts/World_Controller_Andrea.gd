@@ -34,6 +34,10 @@ func placeCream() -> void:
 func placeWall() -> void:
 	itemToPlace = wall_1x1
 	print("Tool selected: Wall Builder")
+
+func checkHeight() -> void:
+	print(CheckHeight())
+	print("Tool selected: Height")
 	
 # -----------------------------
 # Place objects based on mouse coordinates
@@ -122,9 +126,9 @@ func check_intersection(node_a: Node3D, node_b: Node3D) -> bool:
 	var aabb_a = _get_global_aabb(node_a)
 	var aabb_b = _get_global_aabb(node_b)
 	# Make slightly smaller so objects we place on top of
-	var shrunk_a = aabb_a.grow(-0.01) 
+	#var shrunk_a = aabb_a.grow(-0.01) 
 	# The intersection check
-	return shrunk_a.intersects(aabb_b)
+	return aabb_a.intersects(aabb_b)
 
 # Returns true if 'target_object' overlaps with any other Node3D in the relevant containers
 func intersects_anything(target_object: Node3D) -> bool:
@@ -141,7 +145,8 @@ func intersects_anything(target_object: Node3D) -> bool:
 		# Exclude the target object itself so it doesn't collide with itself
 		if child != target_object and child is Node3D:
 			# Optional: Exclude "System" nodes like Camera, Sunlight, etc.
-			if child != camera and child != wall_container and child != buildableArea:
+			#if child != camera and child != wall_container and child != buildableArea:
+			if child != camera and child != wall_container:
 				potential_colliders.append(child)
 
 	# 2. Loop through everything and check for overlap
@@ -154,8 +159,9 @@ func intersects_anything(target_object: Node3D) -> bool:
 		if check_intersection(target_object, other_object):
 			# Collision found!
 			print("Intersecting with: ", other_object.name)
+			if other_object.name == "DirectionalLight3D":
+				return false
 			return true
-			
 	# 3. If we finished the loop without returning true, we are safe.
 	return false
 
@@ -195,6 +201,7 @@ func placeAtMouse() -> void:
 	add_child(new_object)
 	new_object.global_position = world_position + Vector3(0, 0, 0)
 	
+	get_tallest_point()
 	# CHECK: Is it allowed here?
 	if not is_inside_buildable_area(new_object) and not intersects_anything(new_object):
 		new_object.queue_free() # Delete it immediately
@@ -248,91 +255,38 @@ func placeOnFace() -> void:
 		placeAtMouse()
 	
 	
-"""
-# -----------------------------
-# Glen Grid Wall Placement
-# -----------------------------
-
-func _try_place_wall(length_in_cells: int):
-	var grid_pos := _get_mouse_grid_position()
-	if grid_pos == null:
-		return
-	if not _can_place(grid_pos, length_in_cells):
-		return
-	_place_wall(grid_pos, length_in_cells)
-
-func _get_mouse_grid_position() -> Vector2i:
-	var mouse_pos := get_viewport().get_mouse_position()
-	var ray_origin := camera.project_ray_origin(mouse_pos)
-	var ray_dir := camera.project_ray_normal(mouse_pos)
-	var query := PhysicsRayQueryParameters3D.create(
-		ray_origin,
-		ray_origin + ray_dir * 1000.0
-	)
-	var result := get_world_3d().direct_space_state.intersect_ray(query)
-	if result.is_empty():
-		return Vector2i.ZERO
-	var world_pos: Vector3 = result.position
-	return Vector2i(int(floor(world_pos.x / cell_size)), int(floor(world_pos.z / cell_size)))
-
-func _can_place(start: Vector2i, length: int) -> bool:
-	var target_height = _get_stack_height(start)
-	for i in length:
-		var cell = Vector2i(start.x + i, start.y)
-		if _get_stack_height(cell) != target_height:
-			return false
-	return true
-
-func _get_stack_height(cell: Vector2i) -> int:
-	if not occupied_cells.has(cell):
-		return 0
-	return occupied_cells[cell].size()
-
-func _ensure_cell_stack(cell: Vector2i) -> Array:
-	if not occupied_cells.has(cell):
-		occupied_cells[cell] = []
-	return occupied_cells[cell]
-
-#
-func _place_wall(start: Vector2i, length: int):
-	var scene = wall_1x1 if length == 1 else wall_2x1
-	if scene == null:
-		push_error("Wall prefab not assigned")
-		return
-
-	var wall: Node3D = scene.instantiate()
-	wall_container.add_child(wall)
-
-	var height_index = _get_stack_height(start)
-	var y = height_index * wall_height
-
-	var world_x = (start.x + length * 0.5) * cell_size
-	var world_z = (start.y + 0.5) * cell_size
-
-	wall.global_position = Vector3(world_x, y, world_z)
+func get_tallest_point():
+	# reference main node
+	var WorldMain = $"."
 	
-	if not is_inside_buildable_area(wall):
-			print("Wall outside buildable area! Deleting...")
-			wall.queue_free()
+	#create array to store Y coords
+	var positionArray = []
+	
+	#get all children of main scene
+	var WorldChildren = WorldMain.get_children()
+	
+	#for all children in main
+	for i in range (WorldChildren.size()):
+		#if child is rigidbody
+		if WorldChildren[i].get_class() == "RigidBody3D":
+			positionArray.append(WorldChildren[i].position.y)
+	
+	positionArray.sort()
+	print(positionArray[-1])
+			
+			
+			
+	
+	#for children in main scene:
+	# 	if child is Mesh:
+	#		find global.position
+	# 
+	return
 
-	# Occupy all cells in the wall
-	var stack = []
-	for i in length:
-		var cell = Vector2i(start.x + i, start.y)
-		stack = _ensure_cell_stack(cell)
-		stack.append(wall)
-		print(get_colliding_object(wall))
-
-# -----------------------------
-# Scratch discard
-# -----------------------------
-var cream_poof_scene = preload("res://Scenes/creamPoof.tscn")
-
-# On button press, adds an instance of creamPoof randomly to scene
-func _on_add_cream_pressed() -> void:
-	var newPoof = cream_poof_scene.instantiate()
-	var randX = randf_range(-5, 5)
-	var randZ = randf_range(-5, 5)
-	newPoof.position = Vector3(randX, 5, randZ)
-	add_child(newPoof)
-"""
+func CheckHeight():
+	var FinalHeight = 0.0
+	while not intersects_anything($HeightChecker):
+		$HeightChecker.position.y -= 1 
+		FinalHeight = $HeightChecker.position.y
+	
+	return FinalHeight

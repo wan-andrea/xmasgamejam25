@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://tym7u1282626"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_50nn8"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_8ml3h"]
+
+[node name="HeightDetector" type="Area3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(9.80125, 0, 0, 0, 1, 0, 0, 0, 9.79094, 0, 0, 0)
+mesh = SubResource("PlaneMesh_50nn8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("WorldBoundaryShape3D_8ml3h")
