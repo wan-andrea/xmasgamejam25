@@ -6,21 +6,19 @@
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8put8"]
 points = PackedVector3Array(-0.301912, -0.0365674, -4.49701, 1.89145, -0.0365674, 0.0361094, -1.91157, -0.0365674, 0.0361094, -1.83823, 0.255972, -3.18083, 1.89145, 0.255972, -3.18083, -1.83823, 0.255972, -0.03719, 1.89145, -0.0365674, -3.18083, 0.135494, 0.255972, -4.57031, -1.91157, -0.0365674, -3.18083, 1.89145, 0.255972, -0.03719, 0.209202, -0.0365674, -4.57031, -0.155613, 0.255972, -4.57031, -1.61897, 0.255972, -3.40027, -0.0826503, -0.0365674, -4.64407, 1.67181, -0.0365674, -3.40027, -1.76527, -0.0365674, -3.32697, 0.428464, 0.255972, -4.35087, 0.0625314, -0.0365674, -4.64407)
 
-[node name="Node3D" type="Node3D"]
-
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
+[node name="RigidBody3D" type="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2382, 0, -80.9527)
 mass = 100.0
 gravity_scale = 3.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.5, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2382, 0, 80.9527)
 mesh = ExtResource("1_s41gv")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("2_8put8")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2382, 0, 80.9527)
 shape = SubResource("ConvexPolygonShape3D_8put8")
