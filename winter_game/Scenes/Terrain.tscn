@@ -1,6 +1,9 @@
-[gd_scene load_steps=34 format=3 uid="uid://2d6865mrlpyl"]
+[gd_scene load_steps=35 format=3 uid="uid://2d6865mrlpyl"]
 
 [ext_resource type="ArrayMesh" uid="uid://dw4bf8c4gq2cm" path="res://meshes/tileableTerrain.obj" id="1_j4ig8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j4ig8"]
+albedo_color = Color(0.840399, 0.847238, 0.942287, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_j4ig8"]
 points = PackedVector3Array(3.95186, 0.56925, -3.30685, 2.82309, -0.398264, -5.08063, 2.82309, -0.398264, -4.59673, 5.08063, -0.398264, -5.08063, 5.08063, -0.398264, -3.30685, 4.11295, 0.891755, -4.11317, 2.82309, 0.246745, -3.30685, 5.08063, -0.0757595, -5.08063, 2.82309, -0.237012, -3.46815, 3.62945, 0.891755, -3.95188, 2.82309, -0.237012, -5.08063, 5.08063, -0.237012, -3.30685, 3.95186, 0.891755, -3.62945, 4.91931, 0.0854929, -3.79075, 3.95186, -0.0757595, -5.08063, 3.14572, 0.56925, -3.30685, 2.82309, -0.0757595, -3.30685, 2.82309, -0.0757595, -4.75803, 3.79099, 0.891755, -4.11317, 4.758, -0.398264, -3.30685, 4.11295, 0.891755, -3.79075, 3.14572, 0.56925, -3.46815, 3.62945, 0.891755, -3.62945, 5.08063, -0.0757595, -3.95188, 4.91931, -0.0757595, -3.30685, 3.79099, 0.0854929, -4.91933, 2.82309, 0.246745, -3.46815)
@@ -102,8 +105,9 @@ points = PackedVector3Array(-3.46575, 0.246745, 4.11095, -5.23953, -0.398264, 3.
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.405426, 0.233261, -0.366692)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0379076, 0.0390902, -0.00362873)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0391283, 0.0434237, -0.005826)
 mesh = ExtResource("1_j4ig8")
+surface_material_override/0 = SubResource("StandardMaterial3D_j4ig8")
 
 [node name="CollisionShape3D32" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_j4ig8")

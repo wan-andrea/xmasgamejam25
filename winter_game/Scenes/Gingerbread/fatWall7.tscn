@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://iuvmd3wfsdtt"]
+[gd_scene load_steps=4 format=3 uid="uid://iuvmd3wfsdtt"]
 
 [ext_resource type="ArrayMesh" uid="uid://c23aq2jro0tfs" path="res://meshes/fatWalls/fatWall7.obj" id="1_4jl1b"]
+[ext_resource type="Material" uid="uid://buej0nt3hbrlt" path="res://Gingerbread.tres" id="2_mg3o4"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mg3o4"]
 points = PackedVector3Array(-0.301912, -0.0365674, -4.49701, 1.89145, -0.0365674, 0.0361094, -1.91157, -0.0365674, 0.0361094, -1.83823, 0.255972, -3.18083, 1.89145, 0.255972, -3.18083, -1.83823, 0.255972, -0.03719, 1.89145, -0.0365674, -3.18083, 0.135494, 0.255972, -4.57031, -1.91157, -0.0365674, -3.18083, 1.89145, 0.255972, -0.03719, 0.209202, -0.0365674, -4.57031, -0.155613, 0.255972, -4.57031, -1.61897, 0.255972, -3.40027, -0.0826503, -0.0365674, -4.64407, 1.67181, -0.0365674, -3.40027, -1.76527, -0.0365674, -3.32697, 0.428464, 0.255972, -4.35087, 0.0625314, -0.0365674, -4.64407)
@@ -18,6 +19,7 @@ center_of_mass = Vector3(0, -0.5, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2371, 0.00439417, 80.9506)
 mesh = ExtResource("1_4jl1b")
 skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_mg3o4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2371, 0.00439417, 80.9506)

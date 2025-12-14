@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bmt7flu8oemhw"]
+[gd_scene load_steps=5 format=3 uid="uid://bmt7flu8oemhw"]
 
 [ext_resource type="Script" uid="uid://0lqmuqy6rb0s" path="res://Scenes/cream_poof.gd" id="1_lf7yk"]
 [ext_resource type="ArrayMesh" uid="uid://dcw7u1twu16kl" path="res://meshes/pretzelSquare.obj" id="2_lf7yk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lf7yk"]
+albedo_color = Color(0.498039, 0.345098, 0.266667, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mv21a"]
 points = PackedVector3Array(11.5537, 0.405867, 1.15033, 0.246187, -0.387629, -11.1503, 12.1503, -0.387629, -10.7538, 0.246187, -0.387629, 1.15033, 0.0485516, 0.405867, -10.9514, 11.9514, 0.405867, -10.9514, 12.1503, -0.387629, 0.753813, -0.150327, 0.405867, 0.554934, -0.150327, -0.387629, -10.7538, 12.1503, 0.405867, 0.554934, 0.445066, 0.405867, 1.15033, 11.5537, 0.405867, -11.1503, 11.7538, -0.387629, -11.1503, 11.7538, -0.387629, 1.15033, -0.150327, -0.387629, 0.753813, 12.1503, 0.405867, -10.5537, 0.445066, 0.405867, -11.1503, -0.150327, 0.405867, -10.5537, 11.9514, 0.405867, 0.951448, 0.0485516, 0.405867, 0.951448)
@@ -13,6 +16,7 @@ script = ExtResource("1_lf7yk")
 [node name="peanutCup" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.302983, 0, 0.227281)
 mesh = ExtResource("2_lf7yk")
+surface_material_override/0 = SubResource("StandardMaterial3D_lf7yk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.306212, 0, 0.23051)

@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjyf6yhs4st7s"]
+[gd_scene load_steps=4 format=3 uid="uid://cjyf6yhs4st7s"]
 
+[ext_resource type="Material" uid="uid://buej0nt3hbrlt" path="res://Gingerbread.tres" id="1_a87lg"]
 [ext_resource type="ArrayMesh" uid="uid://bm45e6fcrlwxq" path="res://meshes/thinWalls/thinWall4.obj" id="1_peilc"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_a87lg"]
@@ -16,6 +17,7 @@ center_of_mass = Vector3(0, -0.5, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2382, 0, 80.9527)
+material_override = ExtResource("1_a87lg")
 mesh = ExtResource("1_peilc")
 skeleton = NodePath("../..")
 
