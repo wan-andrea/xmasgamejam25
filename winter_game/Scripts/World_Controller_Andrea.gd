@@ -32,6 +32,12 @@ var wind_direction: Vector3 = Vector3.FORWARD
 var wind_strength: float = 0.0
 var time_elapsed := 0.0
 
+# --- CAMERA FOLLOW ---
+@export var camera_height_offset: float = 6.0
+@export var camera_follow_speed: float = 3.0
+
+var max_tower_height: float = 0.0
+
 # =============================
 # SCENES
 # =============================
@@ -117,6 +123,7 @@ func _update_wind() -> void:
 	var t: float = clamp(time_elapsed / 60.0, 0.0, 1.0)
 	wind_strength = lerp(base_wind_strength, max_wind_strength, t)
 
+
 func _apply_wind_to_bodies() -> void:
 	for child in get_children():
 		if child is RigidBody3D and not child.freeze:
@@ -132,11 +139,15 @@ func _apply_wind_to_bodies() -> void:
 # VISUAL WIND DEBUG (OPTIONAL)
 # =============================
 func _process(delta: float) -> void:
+	# Wind debug
 	if wind_sources:
 		wind_sources.look_at(
 			wind_sources.global_position + wind_direction,
 			Vector3.UP
 		)
+
+	# Camera follow
+	_update_camera_height(delta)
 
 # =============================
 # TOOL SELECTION
@@ -378,3 +389,25 @@ func _on_timer_timeout():
 	$CanvasLayer/UI/VBoxContainer/ScoreLabel/Score.text = score 
 	
 	itemToPlace = null
+	
+func get_current_tower_height() -> float:
+	var highest: float = 0.0
+
+	for child in get_children():
+		if child is RigidBody3D:
+			highest = max(highest, child.global_position.y)
+
+	return highest
+
+func _update_camera_height(delta: float) -> void:
+	var current_height: float = get_current_tower_height()
+
+	# Only move camera UP, never down
+	max_tower_height = max(max_tower_height, current_height)
+
+	var target_y: float = max_tower_height + camera_height_offset
+
+	var cam_pos := camera.global_position
+	cam_pos.y = lerp(cam_pos.y, target_y, delta * camera_follow_speed)
+
+	camera.global_position = cam_pos
