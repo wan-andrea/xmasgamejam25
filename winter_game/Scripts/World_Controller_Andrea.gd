@@ -36,7 +36,7 @@ func placeWall() -> void:
 	print("Tool selected: Wall Builder")
 
 func checkHeight() -> void:
-	print(CheckHeight())
+	#print(CheckHeight())
 	print("Tool selected: Height")
 	
 func startTimer() -> void:
@@ -162,7 +162,7 @@ func intersects_anything(target_object: Node3D) -> bool:
 		# Run the AABB intersection test
 		if check_intersection(target_object, other_object):
 			# Collision found!
-			print("Intersecting with: ", other_object.name)
+			#print("Intersecting with: ", other_object.name)
 			if other_object.name == "DirectionalLight3D":
 				return false
 			return true
@@ -226,7 +226,7 @@ func placeOnFace() -> void:
 	var hit_object = objectClicked()
 	# Make sure we actually clicked on object
 	var clicked_node = hit_object["node"]
-	print(clicked_node, clicked_node.is_in_group("walls"))
+	#print(clicked_node, clicked_node.is_in_group("walls"))
 	if not hit_object.is_empty() and clicked_node.is_in_group("walls"):
 		var click_pos = hit_object["position"]
 		var raw_normal = hit_object["normal"]
@@ -276,7 +276,7 @@ func get_tallest_point():
 			positionArray.append(WorldChildren[i].position.y)
 	
 	positionArray.sort()
-	print(positionArray[-1])
+	#print(positionArray[-1])
 			
 			
 			
@@ -300,17 +300,19 @@ func StartTimer():
 	
 	add_child(timer)
 	
-	timer.wait_time = 60.0
+	timer.wait_time = 1.0
 	
 	timer.one_shot = true
 	
 	timer.start()
 	
-	print(timer.time_left)
+	#print(timer.time_left)
 	
 	timer.timeout.connect(_on_timer_timeout)
 	
 func _on_timer_timeout() -> void:
 	print("timer stopped")
-	print(CheckHeight())
+	var score = ""
+	score = str(CheckHeight())
+	$CanvasLayer/UI/HBoxContainer/Label.text = score
 	pass
