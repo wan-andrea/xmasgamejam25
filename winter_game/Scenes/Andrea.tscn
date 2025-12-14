@@ -95,7 +95,7 @@ text = "pretzelSquare"
 
 [node name="addWall" type="Button" parent="CanvasLayer/UI/HBoxContainer"]
 layout_mode = 2
-text = "Wall"
+text = "wallOld"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
 visible = false

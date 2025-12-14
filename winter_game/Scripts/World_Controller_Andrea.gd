@@ -142,12 +142,36 @@ func placePretzel()-> void:
 
 func placeWall() -> void:
 	itemToPlace = wall_1x1
+	
+func placeGWall() -> void:
+	itemToPlace = randomWall()
 
 func restartGame():
 	get_tree().reload_current_scene()
 
 func endGame():
 	get_tree().quit()
+
+# =============================
+# Handling Gingerbread Walls
+# =============================
+
+# Function to select random gingerbread wall for placement
+# upon clicking the Wall button on the UI bar
+# this function is called in placeGWall()
+# I have a bunch of obj meshes wall1.obj, wall2.obj etc.
+func randomWall():
+	return
+
+# Upon right click of mouse, user can turn a horizontal into vertical
+# or vice versa
+func rotateWallPlane():
+	return
+
+# Upon scrolling, the wall will rotate 90 degrees so it is facing diff
+# directions
+func changeWallOrientation():
+	return
 
 # =============================
 # RAYCASTING
