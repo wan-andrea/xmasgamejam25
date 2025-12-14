@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6cry4agruq04"]
+
+[ext_resource type="Script" uid="uid://be82fr1ca0fvn" path="res://Scenes/main_menu.gd" id="1_tt5f1"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tt5f1")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+text = "New Game"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Button" to="." method="_on_start_button_pressed"]
