@@ -39,6 +39,7 @@ var creamPoofScene = preload("res://Scenes/creamPoof.tscn")
 var gumDropScene = preload("res://Scenes/gumDrop.tscn")
 var hersheyKissScene = preload("res://Scenes/hersheyKiss.tscn")
 var marshMallowScene = preload("res://Scenes/marshMallow.tscn")
+var peanutCupScene = preload("res://Scenes/peanutCup.tscn")
 # =============================
 # INPUT
 # =============================
@@ -61,6 +62,8 @@ func _unhandled_input(event):
 		elif itemToPlace == hersheyKissScene:
 			placeOnFace()
 		elif itemToPlace == marshMallowScene:
+			placeOnFace()
+		elif itemToPlace == peanutCupScene:
 			placeOnFace()
 		else:
 			placeAtMouse()
@@ -126,6 +129,10 @@ func placeKiss() -> void:
 # Item can be placed on walls
 func placeMallow() -> void:
 	itemToPlace = marshMallowScene
+	
+# Item can be placed on walls
+func placeCup() -> void:
+	itemToPlace = peanutCupScene
 
 func placeWall() -> void:
 	itemToPlace = wall_1x1

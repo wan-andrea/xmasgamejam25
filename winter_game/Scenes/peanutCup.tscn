@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvtyam3o8ybop"]
+
+[ext_resource type="Script" uid="uid://0lqmuqy6rb0s" path="res://Scenes/cream_poof.gd" id="1_58io8"]
+[ext_resource type="ArrayMesh" uid="uid://ddgs8bwya6fn7" path="res://meshes/peanutCup.obj" id="2_58io8"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kwf6d"]
+points = PackedVector3Array(0.967297, 2.6793, 3.0247, -0.115788, 0.0815066, -3.71979, -1.22262, -4.44089e-16, -3.66786, -0.972956, 3.29266, -2.79696, -3.17835, 2.22045e-16, 2.32267, 3.66786, 0, 1.22185, 2.79531, 3.29169, -0.971619, -2.79787, 3.29319, 0.973272, -3.66786, 0, -1.22262, 2.32343, 0, -3.17835, 1.22262, 0, 3.66786, -0.972146, 3.29129, 2.79464, 2.38707, 3.26232, 1.7903, 0.97163, 3.2917, -2.79534, -2.38463, 3.26117, -1.78903, -1.22262, -4.44089e-16, 3.66786, 3.66786, 0, -1.22185, -2.32267, 2.22045e-16, -3.17911, 2.32343, -4.44089e-16, 3.17835, -3.58721, 0.515147, 1.19574, 2.96906, 3.13536, 0.118316, -2.96101, 3.13133, -0.117995, 2.38715, 3.26237, -1.79036, -1.70206, 3.29261, 2.43195, 1.19913, 0.511925, -3.59738, 3.11489, 0.393075, -2.2763, -2.27654, 0.392943, 3.11597, -3.11485, 0.393093, -2.27626, 3.11458, 0.393203, 2.27607, 1.7903, 3.26232, 2.38707, 0.117929, 2.77536, -3.07803, 2.79522, 3.29163, 0.971588)
+
+[node name="RigidBody3D" type="RigidBody3D"]
+transform = Transform3D(0.997866, 0, 0, 0, 0.997866, 0, 0, 0, 0.997866, 0, 0, 0)
+script = ExtResource("1_58io8")
+
+[node name="peanutCup" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.00801757, 0, 0.0281255)
+mesh = ExtResource("2_58io8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.00801757, 0, 0.0281255)
+shape = SubResource("ConvexPolygonShape3D_kwf6d")
