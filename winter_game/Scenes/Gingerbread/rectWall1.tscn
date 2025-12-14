@@ -6,7 +6,7 @@
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_h01pm"]
 points = PackedVector3Array(-3.17398, -0.0496032, -3.1746, -3.17398, -0.0496032, -0.000446677, -3.17398, 0.248016, -3.1746, 3.17398, -0.0496032, -3.1746, 3.17398, 0.248016, -3.1746, -3.17398, 0.248016, -0.000446677, 3.17398, -0.0496032, -0.000446677, 3.17398, 0.248016, -0.000446677)
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" groups=["walls"]]
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2382, 0, -80.9527)
