@@ -52,6 +52,10 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 text = "CreamPoof"
 
+[node name="addGum" type="Button" parent="CanvasLayer/UI/HBoxContainer"]
+layout_mode = 2
+text = "addGum"
+
 [node name="addWall" type="Button" parent="CanvasLayer/UI/HBoxContainer"]
 layout_mode = 2
 text = "Wall"
@@ -135,6 +139,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 9.54358, -1)
 visible = false
 
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addCream" to="." method="placeCream"]
+[connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addGum" to="." method="placeGum"]
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addWall" to="." method="placeWall"]
 [connection signal="pressed" from="CanvasLayer/UI/VBoxContainer/HBoxContainer/Button" to="." method="restartGame"]
 [connection signal="pressed" from="CanvasLayer/UI/VBoxContainer/HBoxContainer/Button2" to="." method="endGame"]

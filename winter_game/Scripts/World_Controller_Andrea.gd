@@ -36,7 +36,7 @@ var time_elapsed := 0.0
 # SCENES
 # =============================
 var creamPoofScene = preload("res://Scenes/creamPoof.tscn")
-
+var gumDropScene = preload("res://Scenes/gumDrop.tscn")
 
 
 # =============================
@@ -56,13 +56,14 @@ func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		if itemToPlace == creamPoofScene:
 			placeOnFace()
+		if itemToPlace == gumDropScene:
+			placeOnFace()
 		else:
 			placeAtMouse()
 
 func _ready():
 	StartTimer()
-	
-	
+
 	
 # =============================
 # WIND UPDATE
@@ -105,8 +106,14 @@ func _process(delta: float) -> void:
 # =============================
 # TOOL SELECTION
 # =============================
+
+# Item can be placed on walls
 func placeCream() -> void:
 	itemToPlace = creamPoofScene
+
+# Item can be placed on walls
+func placeGum() -> void:
+	itemToPlace = gumDropScene
 
 func placeWall() -> void:
 	itemToPlace = wall_1x1
@@ -168,12 +175,14 @@ func get_snapped_normal(n: Vector3) -> Vector3:
 		return Vector3(0, 0, sign(n.z))
 
 func placeOnFace() -> void:
+	print("Using placeOnFace...")
 	var hit = objectClicked()
 	if hit.is_empty():
 		placeAtMouse()
 		return
 
 	var clicked_node = hit["node"]
+	# everything that is not a wall can be placed on face?
 	if not clicked_node.is_in_group("walls"):
 		placeAtMouse()
 		return
@@ -231,7 +240,7 @@ func _get_global_aabb(node: Node3D) -> AABB:
 func StartTimer():
 	var timer := Timer.new()
 	add_child(timer)
-	timer.wait_time = 3.0
+	timer.wait_time = 60.0 
 	timer.one_shot = true
 	timer.start()
 	print("Timer started")

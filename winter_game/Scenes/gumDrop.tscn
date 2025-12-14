@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7tgvnu3hwbna"]
+
+[ext_resource type="Script" uid="uid://0lqmuqy6rb0s" path="res://Scenes/cream_poof.gd" id="1_chwg6"]
+[ext_resource type="ArrayMesh" uid="uid://den7rgml0aj66" path="res://meshes/gumDrop.obj" id="2_chwg6"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3kswj"]
+points = PackedVector3Array(-2.96974, 3.52348, -1.20954, 3.55406, 1.1913, 0.665865, 3.39946, 1.44025, 1.09651, 1.09119, 6.36093, -0.981796, 0.888885, 0.634685, -3.44417, -1.3386, 0.511457, 3.2357, -0.438945, 5.39035, 2.41558, -3.57227, 0.733555, 0.223092, 1.78066, 0.183585, 2.67204, -2.00069, 0.0775487, -2.22283, -1.31155, 5.38122, -2.07656, -2.1766, 5.4821, 0.979196, 1.63695, 4.50516, 2.40072, 2.88123, 0.420884, -1.88356, 2.29418, 4.72525, -1.63899, -2.32256, 0.868618, -2.76545, 0.109755, 3.96349, -3.08486, 2.29637, 5.38296, 0.875101, -0.110089, 6.94965, 0.110089, -2.30212, 3.30452, 2.3028, 1.1018, 1.32052, 3.41586, -2.67177, 0.183724, 1.78164, 2.89806, 0.0678907, 0.668299, -0.552613, 3.30276, 3.20557, 3.20241, 3.30231, -0.552068, 2.41575, 1.43717, -2.63593, 1.33444, 0.0752626, -2.66958, -1.85802, 5.92785, -0.764989, -2.97052, 4.18263, 0.550123, 2.76554, 0.868537, 2.32333, -1.11164, 0.967515, -3.44637, -3.21808, 0.972352, 1.66431)
+
+[node name="RigidBody3D" type="RigidBody3D"]
+transform = Transform3D(0.997866, 0, 0, 0, 0.997866, 0, 0, 0, 0.997866, 0, 0, 0)
+script = ExtResource("1_chwg6")
+
+[node name="CreamPoof" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.00801757, 0, 0.0281255)
+mesh = ExtResource("2_chwg6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.00801757, 0, 0.0281255)
+shape = SubResource("ConvexPolygonShape3D_3kswj")
