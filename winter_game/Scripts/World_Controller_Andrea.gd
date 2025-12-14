@@ -293,9 +293,11 @@ func placeOnFace() -> void:
 func placeGWall()-> void:
 	var hit = objectClicked()
 	# Place normally if not on the buildable area
+	"""
 	if hit.is_empty() or hit["node"] != buildableArea:
 		placeAtMouse()
 		return
+	"""
 	# Place object
 	var new_object = itemToPlace.instantiate()
 	add_child(new_object)
@@ -398,13 +400,13 @@ func CheckHeight():
 	return FinalHeight
 	
 func _on_timer_timeout():
-	$CanvasLayer/UI/HBoxContainer.hide()
-	$CanvasLayer/UI/VBoxContainer.show()
+	$CanvasLayer/UI/decorativePlacement.hide()
+	$CanvasLayer/UI/endGame.show()
 	
 	var score = "" 
 	score = str(snapped(CheckHeight(), 0.01)) 
 	
-	$CanvasLayer/UI/VBoxContainer/ScoreLabel/Score.text = score 
+	$CanvasLayer/UI/endGame/ScoreLabel/Score.text = score 
 	
 	itemToPlace = null
 	
