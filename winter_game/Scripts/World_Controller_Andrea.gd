@@ -87,6 +87,12 @@ func _unhandled_input(event):
 			placeOnFace()
 		elif itemToPlace == pretzelSquareScene:
 			placeOnFace()
+		elif thinWalls.has(itemToPlace):
+			placeGWall()
+		elif fatWalls.has(itemToPlace):
+			placeGWall()
+		elif rectWalls.has(itemToPlace):
+			placeGWall()
 		else:
 			placeAtMouse()
 
@@ -192,25 +198,6 @@ func randWall(wall_list: Array[PackedScene]):
 		itemToPlace = wall_list.pick_random()
 	return itemToPlace
 
-# Upon right click of mouse, user can turn a horizontal into vertical
-# or vice versa
-func rotateWallPlane():
-	pass
-
-# Upon scrolling, the wall will rotate 90 degrees so it is facing diff
-# directions
-func changeWallOrientation():
-	pass
-	
-# Helper function to check if wall is horz or vert currently
-# Returns true if horziontal, false otherwise
-func isWallHorizontal():
-	pass
-
-# Helper function to check which orientation the wall is facing -
-# returns the direction (for example +X, -X, +Z, -Z) as vector
-func currentWallDir():
-	return
 # =============================
 # RAYCASTING
 # =============================
@@ -287,6 +274,31 @@ func placeOnFace() -> void:
 	if new_object is RigidBody3D:
 		new_object.freeze = true
 		new_object.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
+
+# Gingerbread walls are "sticky" to the buildable area the same way
+# Other objects are sticky to the wall faces
+# If the wall is not being placed on the buildable area
+# then it should use placeOnMouse
+func placeGWall()-> void:
+	var hit = objectClicked()
+	# Place normally if not on the buildable area
+	if hit.is_empty() or hit["node"] != buildableArea:
+		placeAtMouse()
+		return
+	# Place object
+	var new_object = itemToPlace.instantiate()
+	add_child(new_object)
+	new_object.global_position = hit["position"]
+	# Make vertical
+	new_object.look_at(new_object.global_position + Vector3.FORWARD, Vector3.UP)
+	new_object.rotate_object_local(Vector3.RIGHT, -PI / 2)
+	# Make sticky
+	if new_object is RigidBody3D:
+		new_object.freeze = true
+		new_object.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
+	# Delete if invalid
+	if intersects_anything(new_object) or not is_inside_buildable_area(new_object):
+		new_object.queue_free()
 
 # =============================
 # COLLISION HELPERS
