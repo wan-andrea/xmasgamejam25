@@ -41,6 +41,25 @@ var hersheyKissScene = preload("res://Scenes/hersheyKiss.tscn")
 var marshMallowScene = preload("res://Scenes/marshMallow.tscn")
 var peanutCupScene = preload("res://Scenes/peanutCup.tscn")
 var pretzelSquareScene = preload("res://Scenes/pretzelSquare.tscn")
+
+# Gingerbread walls - list all possible walls
+
+var rectWalls: Array[PackedScene] = [
+	preload("res://Scenes/Gingerbread/rectWall1.tscn"),
+	preload("res://Scenes/Gingerbread/rectWall2.tscn")
+]
+
+var thinWalls: Array[PackedScene] = [
+	preload("res://Scenes/Gingerbread/thinWall3.tscn"),
+	preload("res://Scenes/Gingerbread/thinWall4.tscn")
+]
+
+var fatWalls: Array[PackedScene] = [
+	preload("res://Scenes/Gingerbread/fatWall5.tscn"),
+	preload("res://Scenes/Gingerbread/fatWall6.tscn"),
+	preload("res://Scenes/Gingerbread/fatWall7.tscn"),
+	preload("res://Scenes/Gingerbread/fatWall8.tscn")
+]
 # =============================
 # INPUT
 # =============================
@@ -143,8 +162,15 @@ func placePretzel()-> void:
 func placeWall() -> void:
 	itemToPlace = wall_1x1
 	
-func placeGWall() -> void:
-	itemToPlace = randomWall()
+# for gingerbread walls
+func placeFatWall() -> void:
+	itemToPlace = randWall(fatWalls)
+
+func placeThinWall() -> void:
+	itemToPlace = randWall(thinWalls)
+	
+func placeRectWall() -> void:
+	itemToPlace = randWall(rectWalls)
 
 func restartGame():
 	get_tree().reload_current_scene()
@@ -158,21 +184,33 @@ func endGame():
 
 # Function to select random gingerbread wall for placement
 # upon clicking the Wall button on the UI bar
-# this function is called in placeGWall()
-# I have a bunch of obj meshes wall1.obj, wall2.obj etc.
-func randomWall():
-	return
+func randWall(wall_list: Array[PackedScene]):
+	if wall_list.is_empty():
+		print("Warning: Provided wall list is empty. Using default wall.")
+		itemToPlace = wall_1x1 # Use magenta cube for backup
+	else:
+		itemToPlace = wall_list.pick_random()
+	return itemToPlace
 
 # Upon right click of mouse, user can turn a horizontal into vertical
 # or vice versa
 func rotateWallPlane():
-	return
+	pass
 
 # Upon scrolling, the wall will rotate 90 degrees so it is facing diff
 # directions
 func changeWallOrientation():
-	return
+	pass
+	
+# Helper function to check if wall is horz or vert currently
+# Returns true if horziontal, false otherwise
+func isWallHorizontal():
+	pass
 
+# Helper function to check which orientation the wall is facing -
+# returns the direction (for example +X, -X, +Z, -Z) as vector
+func currentWallDir():
+	return
 # =============================
 # RAYCASTING
 # =============================

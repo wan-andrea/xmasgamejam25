@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dg0jnn2iwdwhf"
+path="res://.godot/imported/fatWall8.obj-5530148c05d3bdeb4cd7310d4fe32aae.mesh"
+
+[deps]
+
+files=["res://.godot/imported/fatWall8.obj-5530148c05d3bdeb4cd7310d4fe32aae.mesh"]
+
+source_file="res://meshes/fatWalls/fatWall8.obj"
+dest_files=["res://.godot/imported/fatWall8.obj-5530148c05d3bdeb4cd7310d4fe32aae.mesh", "res://.godot/imported/fatWall8.obj-5530148c05d3bdeb4cd7310d4fe32aae.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

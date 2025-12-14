@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bdo40teaxn4xi"
+path="res://.godot/imported/thinWall3.obj-acb05e297dd15916eebed23bdac5b37f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/thinWall3.obj-acb05e297dd15916eebed23bdac5b37f.mesh"]
+
+source_file="res://meshes/thinWalls/thinWall3.obj"
+dest_files=["res://.godot/imported/thinWall3.obj-acb05e297dd15916eebed23bdac5b37f.mesh", "res://.godot/imported/thinWall3.obj-acb05e297dd15916eebed23bdac5b37f.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

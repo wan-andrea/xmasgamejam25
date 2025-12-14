@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmwwf0424qeej"]
+
+[ext_resource type="ArrayMesh" uid="uid://dg0jnn2iwdwhf" path="res://meshes/fatWalls/fatWall8.obj" id="1_4q525"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0xhdr"]
+points = PackedVector3Array(-0.301912, -0.0365674, -4.49701, 1.89145, -0.0365674, 0.0361094, -1.91157, -0.0365674, 0.0361094, -1.83823, 0.255972, -3.18083, 1.89145, 0.255972, -3.18083, -1.83823, 0.255972, -0.03719, 1.89145, -0.0365674, -3.18083, 0.135494, 0.255972, -4.57031, -1.91157, -0.0365674, -3.18083, 1.89145, 0.255972, -0.03719, 0.209202, -0.0365674, -4.57031, -0.155613, 0.255972, -4.57031, -1.61897, 0.255972, -3.40027, -0.0826503, -0.0365674, -4.64407, 1.67181, -0.0365674, -3.40027, -1.76527, -0.0365674, -3.32697, 0.428464, 0.255972, -4.35087, 0.0625314, -0.0365674, -4.64407)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2382, 0, -80.9527)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2382, 0, 80.9527)
+mesh = ExtResource("1_4q525")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2382, 0, 80.9527)
+shape = SubResource("ConvexPolygonShape3D_0xhdr")

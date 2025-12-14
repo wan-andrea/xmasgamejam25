@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1cm45ttwmgck"]
+
+[ext_resource type="ArrayMesh" uid="uid://bdo40teaxn4xi" path="res://meshes/thinWalls/thinWall3.obj" id="1_fkmas"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ovu1r"]
+points = PackedVector3Array(1.26972, 0.241617, 0.0340843, 1.26972, -0.0345167, 0.0340843, -1.28452, -0.0345167, 0.0340843, -1.28452, 0.241617, -0.0351045, 1.26972, -0.0345167, -3.20957, -1.28452, -0.0345167, -3.20957, 1.26972, 0.241617, -3.20957, -1.28452, 0.241617, -3.14038, 0.0961094, -0.0345167, -4.38362, -0.0416532, 0.241617, -4.38362, -0.110659, -0.0345167, -4.38362, -1.21526, 0.241617, 0.0340843, 0.0961094, 0.241617, -4.38362)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2382, 0, -80.9527)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2382, 0, 80.9527)
+mesh = ExtResource("1_fkmas")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2382, 0, 80.9527)
+shape = SubResource("ConvexPolygonShape3D_ovu1r")
