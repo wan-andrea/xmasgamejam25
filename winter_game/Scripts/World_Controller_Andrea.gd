@@ -355,10 +355,19 @@ func StartTimer():
 		
 	timer = Timer.new()
 	add_child(timer)
+<<<<<<< HEAD
 	timer.wait_time = 1.0
 	timer.one_shot = false # Must be false to repeat every second
 	timer.timeout.connect(_on_timer_tick)
 	timer.start()
+=======
+	timer.wait_time = 60.0 
+	timer.one_shot = true
+	timer.start()
+	print("Timer started")
+	timer.timeout.connect(_on_timer_timeout)
+	
+>>>>>>> dc99ab2d0a2b0b2bbae1156a9cbb8f97de21a0f6
 	
 	# Update the UI
 	_update_timer_ui()
