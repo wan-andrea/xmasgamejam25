@@ -25,6 +25,7 @@ script = ExtResource("2_o11sk")
 
 [node name="defaultCreamPuff" parent="." instance=ExtResource("3_y0ugs")]
 transform = Transform3D(0.96377, 0, 0, 0, 0.96377, 0, 0, 0, 0.96377, 0.290701, 0, 0.492692)
+visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -38,6 +39,7 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -66,6 +68,23 @@ text = "Timer Start"
 [node name="Label" type="Label" parent="CanvasLayer/UI/HBoxContainer"]
 layout_mode = 2
 text = "Score: "
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Title" type="Label" parent="CanvasLayer/UI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Game over"
+uppercase = true
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/UI/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Your score: "
 
 [node name="buildableArea" parent="." instance=ExtResource("3_e7cgn")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.870608, 0)
