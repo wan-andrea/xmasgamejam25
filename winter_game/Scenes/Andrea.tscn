@@ -39,10 +39,12 @@ mouse_filter = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = -1
 anchor_right = 1.0
-offset_bottom = 8.0
+anchor_bottom = 0.062
+offset_bottom = -32.176
 grow_horizontal = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="addCream" type="Button" parent="CanvasLayer/UI/HBoxContainer"]
 custom_minimum_size = Vector2(40, 40)
@@ -55,6 +57,11 @@ text = "Wall"
 
 [node name="Button" type="Button" parent="CanvasLayer/UI/HBoxContainer"]
 layout_mode = 2
+text = "Height"
+
+[node name="Button2" type="Button" parent="CanvasLayer/UI/HBoxContainer"]
+layout_mode = 2
+text = "Timer Start"
 
 [node name="buildableArea" parent="." instance=ExtResource("3_e7cgn")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.870608, 0)
@@ -80,3 +87,4 @@ visible = false
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addCream" to="." method="placeCream"]
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addWall" to="." method="placeWall"]
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/Button" to="." method="checkHeight"]
+[connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/Button2" to="." method="startTimer"]

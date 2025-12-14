@@ -39,6 +39,10 @@ func checkHeight() -> void:
 	print(CheckHeight())
 	print("Tool selected: Height")
 	
+func startTimer() -> void:
+	StartTimer()
+	print("Timer Started")
+	
 # -----------------------------
 # Place objects based on mouse coordinates
 # -----------------------------
@@ -290,3 +294,23 @@ func CheckHeight():
 		FinalHeight = $HeightChecker.position.y
 	
 	return FinalHeight
+
+func StartTimer():
+	var timer := Timer.new()
+	
+	add_child(timer)
+	
+	timer.wait_time = 60.0
+	
+	timer.one_shot = true
+	
+	timer.start()
+	
+	print(timer.time_left)
+	
+	timer.timeout.connect(_on_timer_timeout)
+	
+func _on_timer_timeout() -> void:
+	print("timer stopped")
+	print(CheckHeight())
+	pass
