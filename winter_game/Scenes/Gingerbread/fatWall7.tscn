@@ -9,6 +9,10 @@ points = PackedVector3Array(-0.301912, -0.0365674, -4.49701, 1.89145, -0.0365674
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2382, 0, -80.9527)
+mass = 100.0
+gravity_scale = 3.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.5, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2371, 0.00439417, 80.9506)

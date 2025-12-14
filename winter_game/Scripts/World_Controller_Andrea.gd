@@ -290,7 +290,7 @@ func placeGWall()-> void:
 	add_child(new_object)
 	new_object.global_position = hit["position"]
 	# Make vertical
-	new_object.look_at(new_object.global_position + Vector3.FORWARD, Vector3.UP)
+	new_object.look_at(new_object.global_position + Vector3.FORWARD, Vector3.DOWN)
 	new_object.rotate_object_local(Vector3.RIGHT, -PI / 2)
 	# Make sticky
 	if new_object is RigidBody3D:
