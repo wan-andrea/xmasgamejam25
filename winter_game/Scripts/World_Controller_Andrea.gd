@@ -45,6 +45,9 @@ func startTimer() -> void:
 	
 func restartGame():
 	get_tree().reload_current_scene()
+	
+func endGame():
+	get_tree().quit()
 # -----------------------------
 # Place objects based on mouse coordinates
 # -----------------------------
