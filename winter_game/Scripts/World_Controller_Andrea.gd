@@ -235,7 +235,21 @@ func StartTimer():
 	timer.start()
 	timer.timeout.connect(_on_timer_timeout)
 
+func CheckHeight(): 
+	var FinalHeight = 0.0 
+	while not intersects_anything($HeightChecker): 
+		$HeightChecker.position.y -= 1 
+		FinalHeight = $HeightChecker.position.y 
+	
+	return FinalHeight
+	
 func _on_timer_timeout():
 	$CanvasLayer/UI/HBoxContainer.hide()
 	$CanvasLayer/UI/VBoxContainer.show()
+	
+	var score = "" 
+	score = str(snapped(CheckHeight(), 0.01)) 
+	
+	$CanvasLayer/UI/VBoxContainer/ScoreLabel/Score.text = score 
+	
 	itemToPlace = null

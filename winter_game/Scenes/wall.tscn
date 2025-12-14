@@ -8,6 +8,7 @@ albedo_color = Color(1, 0, 1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_d155t"]
 
 [node name="Wall" type="RigidBody3D" groups=["walls"]]
+mass = 5.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_b57mv")
