@@ -121,9 +121,10 @@ func is_inside_buildable_area(object: Node3D) -> bool:
 func check_intersection(node_a: Node3D, node_b: Node3D) -> bool:
 	var aabb_a = _get_global_aabb(node_a)
 	var aabb_b = _get_global_aabb(node_b)
-	
+	# Make slightly smaller so objects we place on top of
+	var shrunk_a = aabb_a.grow(-0.01) 
 	# The intersection check
-	return aabb_a.intersects(aabb_b)
+	return shrunk_a.intersects(aabb_b)
 
 # Returns true if 'target_object' overlaps with any other Node3D in the relevant containers
 func intersects_anything(target_object: Node3D) -> bool:
@@ -196,7 +197,6 @@ func placeAtMouse() -> void:
 	
 	# CHECK: Is it allowed here?
 	if not is_inside_buildable_area(new_object) and not intersects_anything(new_object):
-		# print("Cannot build here: Outside Buildable Area")
 		new_object.queue_free() # Delete it immediately
 		return
 
@@ -224,9 +224,6 @@ func placeOnFace() -> void:
 		# create new object
 		var new_object = itemToPlace.instantiate()
 		add_child(new_object)
-		# Prevent object from falling, since it is attached to smth
-		if new_object is RigidBody3D:
-			new_object.gravity_scale = 0.0
 		# place it where clicked
 		new_object.global_position = click_pos
 		# orient object so the Y up is oriented to the face normal
@@ -237,10 +234,16 @@ func placeOnFace() -> void:
 		else:
 			new_object.look_at(click_pos + face_normal, Vector3.UP)
 			new_object.rotate_object_local(Vector3.RIGHT, -PI/2)
-		# delete if invalid
-		if not intersects_anything(new_object):
-			new_object.queue_free() # Delete it immediately
-			return
+			# Prevent object from falling, since it is attached to smth
+			if new_object is RigidBody3D:
+				# but if it gets hit by stuff in the future 
+				# it should fall to gravity
+				new_object.freeze = true
+				new_object.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
+				new_object.contact_monitor = true
+				new_object.max_contacts_reported = 1
+				if "anchor_node" in new_object:
+					new_object.anchor_node = clicked_node
 	else:
 		placeAtMouse()
 	
