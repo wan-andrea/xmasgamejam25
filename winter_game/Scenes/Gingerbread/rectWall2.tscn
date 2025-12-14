@@ -3,23 +3,21 @@
 [ext_resource type="ArrayMesh" uid="uid://cyubbeivj8hnx" path="res://meshes/rectWalls/rectWall2.obj" id="1_wmwes"]
 [ext_resource type="Material" uid="uid://buej0nt3hbrlt" path="res://Gingerbread.tres" id="2_mnmyk"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_yanq7"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mnmyk"]
 points = PackedVector3Array(-1.90476, -0.0297386, -3.15476, -1.90476, -0.0297386, -0.000256419, -1.90476, 0.208333, -3.15476, 1.90476, -0.0297386, -3.15476, 1.90476, 0.208333, -3.15476, -1.90476, 0.208333, -0.000256419, 1.90476, -0.0297386, -0.000256419, 1.90476, 0.208333, -0.000256419)
 
-[node name="Node3D" type="Node3D"]
-
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
+[node name="RigidBody3D" type="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2382, 0, -80.9527)
 mass = 100.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.5, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2382, 0, 80.9527)
 mesh = ExtResource("1_wmwes")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("2_mnmyk")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2382, 0, 80.9527)
-shape = SubResource("ConvexPolygonShape3D_yanq7")
+shape = SubResource("ConvexPolygonShape3D_mnmyk")
