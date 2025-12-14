@@ -13,6 +13,7 @@ var time_left = 5
 @export var max_wind_strength := 15.0
 @export var wind_change_speed := 0.2
 @export var wind_force_clamp := 60.0
+@onready var place_sound: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 # =============================
 # NODES
@@ -257,6 +258,9 @@ func placeAtMouse() -> void:
 	var new_object = itemToPlace.instantiate()
 	add_child(new_object)
 	new_object.global_position = world_position
+	
+	play_place_sound(new_object.global_position)
+	print("Played sound")
 
 	if not is_inside_buildable_area(new_object) and not intersects_anything(new_object):
 		new_object.queue_free()
@@ -418,3 +422,9 @@ func _update_camera_height(delta: float) -> void:
 	cam_pos.y = lerp(cam_pos.y, target_y, delta * camera_follow_speed)
 
 	camera.global_position = cam_pos
+
+func play_place_sound(pos: Vector3):
+	if place_sound:
+		place_sound.global_position = pos
+		place_sound.pitch_scale = randf_range(0.9, 1.1)
+		place_sound.play()
