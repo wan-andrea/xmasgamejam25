@@ -6,7 +6,8 @@ extends Node3D
 @export var cell_size: float = 1.0
 @export var wall_1x1: PackedScene
 @export var wall_height: float = 1.0
-
+var timer: Timer
+var time_left = 5
 # --- WIND CONFIG ---
 @export var base_wind_strength := 2.0
 @export var max_wind_strength := 15.0
@@ -26,8 +27,6 @@ extends Node3D
 # =============================
 var occupied_cells := {}
 var itemToPlace = null
-var timer: Timer
-var time_left: float = 60.0 
 # --- WIND STATE ---
 var wind_direction: Vector3 = Vector3.FORWARD
 var wind_strength: float = 0.0
@@ -355,30 +354,22 @@ func StartTimer():
 		
 	timer = Timer.new()
 	add_child(timer)
-<<<<<<< HEAD
 	timer.wait_time = 1.0
 	timer.one_shot = false # Must be false to repeat every second
 	timer.timeout.connect(_on_timer_tick)
 	timer.start()
-=======
-	timer.wait_time = 60.0 
-	timer.one_shot = true
-	timer.start()
-	print("Timer started")
-	timer.timeout.connect(_on_timer_timeout)
 	
->>>>>>> dc99ab2d0a2b0b2bbae1156a9cbb8f97de21a0f6
-	
-	# Update the UI
+	# Update the UI immediately
 	_update_timer_ui()
 
 func _on_timer_tick() -> void:
+	# global
 	time_left -= 1
 	
 	if time_left <= 0:
 		time_left = 0
 		_update_timer_ui() # Show 0:00
-		timer.stop()       # Stop the timer so it doesn't keep ticking into negatives
+		timer.stop()       # Stop the timer
 		_on_timer_timeout() # End game
 		return
 	
@@ -389,10 +380,14 @@ func _update_timer_ui() -> void:
 	var minutes = int(time_left / 60)
 	var seconds = int(time_left) % 60
 	var time_string = "%d:%02d" % [minutes, seconds]
-	# get label
+	
+	# Safely try to get the label node
 	var ui_label = $CanvasLayer/UI/TimeLabel
 	if ui_label:
 		ui_label.text = time_string
+	else:
+		# Fallback debug so you know if the path is wrong
+		print("Timer Tick: ", time_string, " (UI Node not found!)")
 		
 func CheckHeight(): 
 	var FinalHeight = 0.0 
