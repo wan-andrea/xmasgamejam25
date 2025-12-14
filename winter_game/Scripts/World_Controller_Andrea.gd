@@ -351,7 +351,7 @@ func _get_global_aabb(node: Node3D) -> AABB:
 func StartTimer():
 	var timer := Timer.new()
 	add_child(timer)
-	timer.wait_time = 60.0 
+	timer.wait_time = 45
 	timer.one_shot = true
 	timer.start()
 	print("Timer started")
