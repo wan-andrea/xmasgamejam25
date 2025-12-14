@@ -37,6 +37,8 @@ var time_elapsed := 0.0
 # =============================
 var creamPoofScene = preload("res://Scenes/creamPoof.tscn")
 
+
+
 # =============================
 # INPUT
 # =============================
@@ -57,6 +59,11 @@ func _unhandled_input(event):
 		else:
 			placeAtMouse()
 
+func _ready():
+	StartTimer()
+	
+	
+	
 # =============================
 # WIND UPDATE
 # =============================
@@ -103,12 +110,6 @@ func placeCream() -> void:
 
 func placeWall() -> void:
 	itemToPlace = wall_1x1
-
-func checkHeight() -> void:
-	pass
-
-func startTimer() -> void:
-	StartTimer()
 
 func restartGame():
 	get_tree().reload_current_scene()
@@ -230,10 +231,25 @@ func _get_global_aabb(node: Node3D) -> AABB:
 func StartTimer():
 	var timer := Timer.new()
 	add_child(timer)
-	timer.wait_time = 1.0
+	timer.wait_time = 3.0
 	timer.one_shot = true
 	timer.start()
+	print("Timer started")
 	timer.timeout.connect(_on_timer_timeout)
+	timer.timeout.connect(_on_timer_tick)
+	
+
+func _on_timer_tick() -> void:
+	var time_left: float = 60
+	print("tick")
+	time_left -= 1
+	if time_left < 0:
+		time_left = 0
+		_on_timer_timeout()  # end game
+		return
+	
+	# Update UI
+	$CanvasLayer/UI/HBoxContainer/TimeLabel/Time.text = str(int(time_left))
 
 func CheckHeight(): 
 	var FinalHeight = 0.0 
