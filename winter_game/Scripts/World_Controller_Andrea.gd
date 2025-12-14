@@ -313,6 +313,6 @@ func StartTimer():
 func _on_timer_timeout() -> void:
 	print("timer stopped")
 	var score = ""
-	score = str(CheckHeight())
+	score = str(snapped(CheckHeight(), 0.01))
 	$CanvasLayer/UI/HBoxContainer/Label.text = score
 	pass
