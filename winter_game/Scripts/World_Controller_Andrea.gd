@@ -96,7 +96,7 @@ func _unhandled_input(event):
 		elif itemToPlace == pretzelSquareScene:
 			placeOnFace()
 		else:
-			placeAtMouse()
+			placeGWall()
 		"""
 		elif thinWalls.has(itemToPlace):
 			# placeGWall()
@@ -188,16 +188,16 @@ func placeWall() -> void:
 	
 # for gingerbread walls
 func placeFatWall() -> void:
-	# itemToPlace = randWall(fatWalls)
-	itemToPlace = fatWalls[0]
+	itemToPlace = randWall(fatWalls)
+	# itemToPlace = fatWalls[0]
 
 func placeThinWall() -> void:
-	itemToPlace = thinWalls[0]
-	# itemToPlace = randWall(thinWalls)
+	# itemToPlace = thinWalls[0]
+	itemToPlace = randWall(thinWalls)
 	
 func placeRectWall() -> void:
-	itemToPlace = rectWalls[0]
-	# itemToPlace = randWall(rectWalls)
+	# itemToPlace = rectWalls[0]
+	itemToPlace = randWall(rectWalls)
 
 func restartGame():
 	get_tree().reload_current_scene()
@@ -299,9 +299,28 @@ func placeOnFace() -> void:
 		new_object.queue_free()
 
 # Gingerbread walls are "sticky" and should use a modified version of place on face
+func make_vertical(item: Node3D) -> void:
+	# Rotates the object -90 degrees around the X axis to make it stand up.
+	# Use 90 or -90 depending on which side is the "front" of your wall.
+	item.rotation_degrees.x = -90
+	
+func placeGWall() -> void:
+	var world_position = getMouseCoords()
+	if world_position == null:
+		return
 
-func placeGWall()-> void:
-	pass
+	var new_object = itemToPlace.instantiate()
+	add_child(new_object)
+	new_object.global_position = world_position
+
+	# Rotate the object to be vertical immediately after placing it
+	make_vertical(new_object)
+
+	# The logic below preserves your original checks.
+	# Note: This logic deletes the object if it is OUTSIDE the build area
+	# AND it does NOT intersect anything.
+	if not is_inside_buildable_area(new_object) and not intersects_anything(new_object):
+		new_object.queue_free()
 	
 # =============================
 # COLLISION HELPERS
