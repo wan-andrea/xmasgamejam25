@@ -39,7 +39,6 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI"]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -70,6 +69,7 @@ layout_mode = 2
 text = "Score: "
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -85,6 +85,29 @@ uppercase = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Your score: "
+
+[node name="Score" type="Label" parent="CanvasLayer/UI/VBoxContainer/ScoreLabel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.48
+anchor_bottom = 1.0
+offset_left = 270.0
+offset_right = 0.039978
+theme_override_font_sizes/font_size = 50
+text = "Your score: "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Restart game"
+
+[node name="Button2" type="Button" parent="CanvasLayer/UI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Exit game"
 
 [node name="buildableArea" parent="." instance=ExtResource("3_e7cgn")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.870608, 0)

@@ -312,7 +312,11 @@ func StartTimer():
 	
 func _on_timer_timeout() -> void:
 	print("timer stopped")
+	$CanvasLayer/UI/HBoxContainer.hide()
+	$CanvasLayer/UI/VBoxContainer.show()
+	if itemToPlace != null:
+			itemToPlace = null
 	var score = ""
 	score = str(snapped(CheckHeight(), 0.01))
-	$CanvasLayer/UI/HBoxContainer/Label.text = score
+	$CanvasLayer/UI/VBoxContainer/ScoreLabel/Score.text = score
 	pass
