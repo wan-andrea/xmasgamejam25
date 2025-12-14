@@ -7,7 +7,7 @@ extends Node3D
 @export var wall_1x1: PackedScene
 @export var wall_height: float = 1.0
 var timer: Timer
-var time_left = 5
+var time_left = 60
 # --- WIND CONFIG ---
 @export var base_wind_strength := 2.0
 @export var max_wind_strength := 15.0
