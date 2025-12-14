@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0vm77raob7id"]
+[gd_scene load_steps=5 format=3 uid="uid://c0vm77raob7id"]
 
 [ext_resource type="Script" uid="uid://0lqmuqy6rb0s" path="res://Scenes/cream_poof.gd" id="1_t67bh"]
 [ext_resource type="ArrayMesh" uid="uid://ce3ijn31cav6x" path="res://meshes/hersheyKiss.obj" id="2_t67bh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t67bh"]
+albedo_color = Color(0.478431, 0.341176, 0.27451, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gjspu"]
 points = PackedVector3Array(1.07361, 0.269753, 0.460487, -0.0928499, 0.195698, -1.13435, -0.0908342, 0.384261, -1.11286, -0.802285, 0.195948, 0.817285, 0.161008, 1.93558, 0.0380738, -1.03062, 0.34948, -0.450992, 1.0412, 0.12597, -0.459039, 0.225929, 0.055869, 1.02814, -0.908733, 0.0184994, -0.38859, 0.185314, 0.460325, 1.06709, 0.673405, 0.385852, -0.901164, -1.04497, 0.429463, 0.274562, 0.403638, 0.0192703, -0.920096, 1.01121, 0.528766, -0.34259, 0.934544, 0.0200597, 0.390566, -0.630131, 0.43347, -0.879814, -0.457742, 0.638722, 0.843271, 0.781852, 0.347532, 0.839349, -0.908393, 0.0188461, 0.391368, 0.161008, 1.93558, -0.035143, 0.940751, 0.66682, 0.344521, -0.446794, 0.0550935, -0.955281, -0.410742, 0.162946, 1.06244, 0.391603, 0.632313, -0.926098, -0.822911, 0.640759, 0.46974, -0.978575, 0.599499, 0.0354389, -1.1256, 0.157855, 0.00134993, -0.864921, 0.637589, -0.403949, 1.08904, 0.490368, -0.0329895, -0.376316, 0.0195065, 0.922967, 0.690896, 0.670869, -0.709631, 0.422649, 0.668961, 0.887692)
@@ -12,8 +15,9 @@ script = ExtResource("1_t67bh")
 
 [node name="hersheyKiss" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.00801757, 0, 0.0281255)
+material_override = SubResource("StandardMaterial3D_t67bh")
 mesh = ExtResource("2_t67bh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.00801757, 0, 0.0281255)
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.00826844, 0, 0.0281255)
 shape = SubResource("ConvexPolygonShape3D_gjspu")
