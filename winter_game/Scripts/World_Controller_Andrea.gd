@@ -81,7 +81,9 @@ func _unhandled_input(event):
 		return
 
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		if itemToPlace == creamPoofScene:
+		if itemToPlace == wall_1x1:
+			placeAtMouse() 
+		elif itemToPlace == creamPoofScene:
 			placeOnFace()
 		elif itemToPlace == gumDropScene:
 			placeOnFace()
@@ -93,14 +95,19 @@ func _unhandled_input(event):
 			placeOnFace()
 		elif itemToPlace == pretzelSquareScene:
 			placeOnFace()
-		elif thinWalls.has(itemToPlace):
-			placeGWall()
-		elif fatWalls.has(itemToPlace):
-			placeGWall()
-		elif rectWalls.has(itemToPlace):
-			placeGWall()
 		else:
 			placeAtMouse()
+		"""
+		elif thinWalls.has(itemToPlace):
+			# placeGWall()
+			placeOnFace()
+		elif fatWalls.has(itemToPlace):
+			# placeGWall()
+			placeOnFace()
+		elif rectWalls.has(itemToPlace):
+			# placeGWall()
+			placeOnFace()
+		"""
 
 func _ready():
 	StartTimer()
@@ -181,13 +188,16 @@ func placeWall() -> void:
 	
 # for gingerbread walls
 func placeFatWall() -> void:
-	itemToPlace = randWall(fatWalls)
+	# itemToPlace = randWall(fatWalls)
+	itemToPlace = fatWalls[0]
 
 func placeThinWall() -> void:
-	itemToPlace = randWall(thinWalls)
+	itemToPlace = thinWalls[0]
+	# itemToPlace = randWall(thinWalls)
 	
 func placeRectWall() -> void:
-	itemToPlace = randWall(rectWalls)
+	itemToPlace = rectWalls[0]
+	# itemToPlace = randWall(rectWalls)
 
 func restartGame():
 	get_tree().reload_current_scene()
@@ -262,7 +272,6 @@ func get_snapped_normal(n: Vector3) -> Vector3:
 func placeOnFace() -> void:
 	print("Using placeOnFace...")
 	var hit = objectClicked()
-	""""""
 	if hit.is_empty():
 		placeAtMouse()
 		return
@@ -286,33 +295,11 @@ func placeOnFace() -> void:
 		new_object.freeze = true
 		new_object.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
 
-# Gingerbread walls are "sticky" to the buildable area the same way
-# Other objects are sticky to the wall faces
-# If the wall is not being placed on the buildable area
-# then it should use placeOnMouse
-func placeGWall()-> void:
-	var hit = objectClicked()
-	# Place normally if not on the buildable area
-	"""
-	if hit.is_empty() or hit["node"] != buildableArea:
-		placeAtMouse()
-		return
-	"""
-	# Place object
-	var new_object = itemToPlace.instantiate()
-	add_child(new_object)
-	new_object.global_position = hit["position"]
-	# Make vertical
-	new_object.look_at(new_object.global_position + Vector3.FORWARD, Vector3.DOWN)
-	new_object.rotate_object_local(Vector3.RIGHT, -PI / 2)
-	# Make sticky
-	if new_object is RigidBody3D:
-		new_object.freeze = true
-		new_object.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
-	# Delete if invalid
-	if intersects_anything(new_object) or not is_inside_buildable_area(new_object):
-		new_object.queue_free()
+# Gingerbread walls are "sticky" and should use a modified version of place on face
 
+func placeGWall()-> void:
+	pass
+	
 # =============================
 # COLLISION HELPERS
 # =============================
