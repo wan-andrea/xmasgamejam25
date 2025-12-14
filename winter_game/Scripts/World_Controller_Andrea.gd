@@ -43,6 +43,8 @@ func startTimer() -> void:
 	StartTimer()
 	print("Timer Started")
 	
+func restartGame():
+	get_tree().reload_current_scene()
 # -----------------------------
 # Place objects based on mouse coordinates
 # -----------------------------

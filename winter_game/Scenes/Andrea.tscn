@@ -134,3 +134,4 @@ visible = false
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/addWall" to="." method="placeWall"]
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/Button" to="." method="checkHeight"]
 [connection signal="pressed" from="CanvasLayer/UI/HBoxContainer/Button2" to="." method="startTimer"]
+[connection signal="pressed" from="CanvasLayer/UI/VBoxContainer/HBoxContainer/Button" to="." method="restartGame"]
