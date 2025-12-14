@@ -293,9 +293,11 @@ func placeOnFace() -> void:
 func placeGWall()-> void:
 	var hit = objectClicked()
 	# Place normally if not on the buildable area
+	"""
 	if hit.is_empty() or hit["node"] != buildableArea:
 		placeAtMouse()
 		return
+	"""
 	# Place object
 	var new_object = itemToPlace.instantiate()
 	add_child(new_object)
