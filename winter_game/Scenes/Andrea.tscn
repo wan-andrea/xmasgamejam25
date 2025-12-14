@@ -63,6 +63,10 @@ text = "Height"
 layout_mode = 2
 text = "Timer Start"
 
+[node name="Label" type="Label" parent="CanvasLayer/UI/HBoxContainer"]
+layout_mode = 2
+text = "Score: "
+
 [node name="buildableArea" parent="." instance=ExtResource("3_e7cgn")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.870608, 0)
 
