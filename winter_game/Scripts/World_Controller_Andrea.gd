@@ -304,7 +304,7 @@ func placeGWall()-> void:
 	new_object.look_at(new_object.global_position + Vector3.FORWARD, Vector3.DOWN)
 	new_object.rotate_object_local(Vector3.RIGHT, -PI / 2)
 	# Make sticky
-	if new_object is RigidBody3D:
+	if new_object is RigidBody3D or RigidBody3D in new_object.get_children():
 		new_object.freeze = true
 		new_object.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
 	# Delete if invalid
@@ -398,13 +398,13 @@ func CheckHeight():
 	return FinalHeight
 	
 func _on_timer_timeout():
-	$CanvasLayer/UI/HBoxContainer.hide()
-	$CanvasLayer/UI/VBoxContainer.show()
+	$CanvasLayer/UI/decorativePlacement.hide()
+	$CanvasLayer/UI/endGame.show()
 	
 	var score = "" 
 	score = str(snapped(CheckHeight(), 0.01)) 
 	
-	$CanvasLayer/UI/VBoxContainer/ScoreLabel/Score.text = score 
+	$CanvasLayer/UI/endGame/ScoreLabel/Score.text = score 
 	
 	itemToPlace = null
 	
